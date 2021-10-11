@@ -1,4 +1,4 @@
-# Balance-of-Satoshis-Docs
+# Balance of Satoshis Commands
 
 **This document helps with BOS Commands:**
 
