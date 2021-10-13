@@ -80,7 +80,7 @@ Most bos commands follow the following format.
 
 7. `bos chart-fees-earned`: Gives you a chart and total routing fees you earned in the last 60 days (default and can be changed)
   - Options:
-    -`pubkey`: Enter the pubkey of for the peer to get the routing fees earned via a specific peer.
+    - `pubkey`: Enter the pubkey of for the peer to get the routing fees earned via a specific peer.
   - Flags:
     - `days`: Produces a chart for the last number of days specified.
     - `count`: Give you a count of the number of forwards instead of sats
@@ -145,6 +145,35 @@ Most bos commands follow the following format.
     - `complete`: Shows complete results in a non table format
 <br></br>
 <br></br>
+
+15. `bos fund`: Lets you make a signed transaction to an address and a specific amount to spend your onchain funds.
+  - Arguments:
+    - `address`: Enter the address you're funding.
+    - `amount`: Enter the amount you're funding.
+  - Flags:
+    - `dryrun`: Does a dryrun and prevents your funds (UTXOs) from getting locked.
+    - `utxo`: Enter a specific tx_id:vout that you want to use to fund.
+    - `select-utxos`: Opens an interactive view to select your spendable UTXOs, use "Space" to select a UTXO and hit "Enter" when done.
+  Example: `bos fund addressToFund amountToFund --select-utxos`
+  <br></br>
+<br></br>
+
+16. `bos gateway`: Stars a LND gateway server on a port that listens to WebUI Access. Connection code has a specific expiry time.
+  - Flags:
+    - `port`: Starts lisening on a specified port
+    - `remote`:  Enter a URL to generate a connection code for a remotegate way that expires at a specific time.
+    <br></br>
+<br></br>
+
+17. `bos graph`: Returns a list of connections and other public information of a node.
+  - Arguments:
+    - Takes `pubkey` or `alias` as an option to return output.
+  - Flags:
+    - `filter`: Set a filter to filter returned results, example `--filter CAPACITY>1000000` returns channels with peers greater than 1M capacity.
+    - `sort`: Sorts the rows in the table by the column specified. example `--sort out_fee`
+  - Example: `bos graph Bitrefill --sort in_fee` 
+
+
 
 
 
