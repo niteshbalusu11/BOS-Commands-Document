@@ -172,6 +172,93 @@ Most bos commands follow the following format.
     - `filter`: Set a filter to filter returned results, example `--filter CAPACITY>1000000` returns channels with peers greater than 1M capacity.
     - `sort`: Sorts the rows in the table by the column specified. example `--sort out_fee`
   - Example: `bos graph Bitrefill --sort in_fee` 
+<br></br>
+<br></br>
+
+18. `bos inbound-channel-rules`: Sets rules for other peers to open channels to you. It takes formulas as the as the rule.
+  - Flags:
+    - `rule`: Select the rule you want to set, examples are `CAPACITY>5000000` to only allow inbound channels of more than 5M capacity. `CAPACITIES>100*M` to only allow an inbound channel if the peer has a total of 1BTC capacity of all public channels put together. Other examples include `PUBLIC_KEY`, `CHANNEL_AGES`, `FEE_RATES` etc.
+    - `reason` sends back a reason message when rejecting an inbound channel.
+  Example: `bos inbound-channel-rules --rule CAPACITY>5000000 --message "Will only accept a minimum 5M inbound channel"`
+<br></br>
+<br></br>
+
+19. `bos inbound-liquidity`: Returns your total inbound liquidity you currently have
+  - Flags:
+    - `above` returns tokens above a number you specify
+    - `below` returns tokens below a number you specify
+    - `min-score` set a minimum fee rate filter
+    - `max-fee-rate` set a maximum fee rate filter
+    - `top` returns liquidity in the top percentile for an individual channel
+<br></br>
+<br></br>
+
+20. `bos increase-inbound-liquidity`: Helps increase your inbound liquidity by doing a loop out.
+  - Flags:
+    - `address`: you can specify an external address to send the looped out onchain funds to
+    - `api-key`: specify a prepaid API key to use
+    - `avoid`: avoid certain pubkeys or channels IDs while taking the path to LOOP. You can use this with `bos tags` and set an avoid tag
+    - `confs`: Number of onchain confirmations to consider you have received the funds successfully, defaulted to 1
+    - `dryrun`: Does not actually loop out but can give you an estimation of how much amount can be looped out and how much it would cost in offchain fees
+    - `fast`: Request LOOP server to avoid batching your onchain transaction
+    - `amount`: amount you want to increase inbound liquidity by
+    - `max-fee`: max fees you're willing to pay in total for the swap
+    - `recover`: you can use the recovery key provided by bos to recover funds in an inprogress swap
+    - `with`: specify the pubkey of the peer you want to increase inbound liquidity for
+<br></br>
+<br></br>
+
+21. `bos increase-outbound-liquidity`: Opens a new channel to increase your outbound liquidity. If you don't specify `with` flag, BOS chooses a peer for you to open a channel to.
+  - Flags:
+    - `amount`: amount to increase liquidity
+    - `fee-rate`: set channel open fee rate (sats/vByte)
+    - `private`: opens a private channel
+    - `with`: enter the pubkey to open channel with
+    - `dryrun`: avoids opening the channel but gives you a summary of the channel open
+<br></br>
+<br></br>
+
+22. `bos outbound-liquidity`: Returns your total outbound liquidity you currently have
+  - Flags:
+    - `above`: returns tokens above a number you specify
+    - `below`: returns tokens below a number you specify
+    - `min-score`: set a minimum fee rate filter
+    - `max-fee-rate`: set a maximum fee rate filter
+    - `top`: returns liquidity in the top percentile for an individual channel
+    - `with`: specify the pubkey of a peer to return liquidity with that peer.
+<br></br>
+<br></br>
+
+23. `bos nodes`: Adds a saved node to for you to control remotely
+  - Options: 
+    - `nodeName`: Enter the name of the node, new or existing
+  - Flags:
+    - `add`: will add a new saved node, will ask you a series of questions to fill out.
+    - `remove`: removes an existing saved node
+    - `unlock`: removes encryption on the macaroon of a saved node
+    - `lock`: encrypt a saved node using a GPG key
+<br></br>
+<br></br>
+
+24. `bos open`: Helps to open channels to the network, batch opening and funding from external/cold wallet is supported.
+  - Arguments:
+    `pubkey`: public key of the node you want to open a channel to. Can enter multiple with a space in between.
+  - Flags:
+    - `amount`: capacity of the channel in Sats you want to open, can specify a separate amount if batch opening channels, default 5M sats if not specified
+    - `external-funding`: give you an address for you to sign from your external wallet along with the amount.
+    - `set-fee-rate`: waits until the channel is open and attempts to set a forwarding fee rate, this process needs to run in the background until a channel is open. Have to run in background process manager like tmux, nohup or keep the ssh session open
+    - `type`: public/private, defaulted to public
+  Example: `bos open pubkey1 --amount 1000000 pubkey2 --amount 3000000 pubkey3 --amount 4000000`. Once you enter the command and hit enter, it will ask the onchain transaction fee you want to set and also if you want to use your internal LND wallet for funding the transaction.
+<br></br>
+<br></br>
+
+25. `bos balanced-channel-open`: Lets you open a balanced channel with your peer, both peers involved need to have keysend turned on.
+  - Flags:
+    - `recover`: Enter the address if funds were accidentally sent to it.
+  Simple running the command `bos balanced-channel-open` will ask you a series of questions to enter, like the `pubkey`, `total capacity` of the channel and the funding `fee rate`. It then key sends all that information to your peer to fund the other half for the channel. Your peer needs to run the same command to accept the request and review all information and agree to it, then the 1st peer or initiator will broadcast the transaction.
+  ![Balanced Channel Open](./images/balancedopen.jpg)
+
+
 
 
 
