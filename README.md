@@ -46,7 +46,7 @@ Most bos commands follow the following format.
   - `offchain`: Returns offchain balance only, amount on channels.
   - `onchain`: Returns onchain balance only, amount in your LND onchain wallet.
    <br></br>
-- Example usage: `bos balance --onchain --confirmed`
+  Example: `bos balance --onchain --confirmed`
 <br></br>
 <br></br>
 
@@ -54,7 +54,7 @@ Most bos commands follow the following format.
 - Flags: 
   - `below`: returns number of days below a certain number
    <br></br>
-- Example: `bos cert-validity-days --below 10`
+  Example: `bos cert-validity-days --below 10`
 <br></br>
 <br></br>
 
@@ -62,7 +62,7 @@ Most bos commands follow the following format.
 - Options:
   - `amount`: generate an address to deposit a specific amount. `bos chain-deposit 100000`.
    <br></br>
-- Example: `bos chain-deposit` or `bos chain-deposit 100000`
+  Example: `bos chain-deposit` or `bos chain-deposit 100000`
 <br></br>
 <br></br>
 
@@ -71,7 +71,7 @@ Most bos commands follow the following format.
   - `blocks`: Fees estimate based on block confirmation target
   - `file`: Enter path to a JSON file to write the out of the command to.
    <br></br>
-- Example: `bos chainfees --blocks 10 --file /home/umbrel/blocks.json`
+  Example: `bos chainfees --blocks 10 --file /home/umbrel/blocks.json`
 <br></br>
 <br></br>
 
@@ -183,7 +183,7 @@ Most bos commands follow the following format.
     - `filter`: Set a filter to filter returned results, example `--filter CAPACITY>1000000` returns channels with peers greater than 1M capacity.
     - `sort`: Sorts the rows in the table by the column specified. example `--sort out_fee`
      <br></br>
-  - Example: `bos graph Bitrefill --sort in_fee` 
+  Example: `bos graph Bitrefill --sort in_fee` 
 <br></br>
 <br></br>
 
