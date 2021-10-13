@@ -45,6 +45,7 @@ Most bos commands follow the following format.
   - `detailed`: Returns detailed balance, a break down of offchain and onchain
   - `offchain`: Returns offchain balance only, amount on channels.
   - `onchain`: Returns onchain balance only, amount in your LND onchain wallet.
+   <br></br>
 - Example usage: `bos balance --onchain --confirmed`
 <br></br>
 <br></br>
@@ -52,6 +53,7 @@ Most bos commands follow the following format.
 3. `bos cert-validity-days`: Returns how many days your certificate is valid.
 - Flags: 
   - `below`: returns number of days below a certain number
+   <br></br>
 - Example: `bos cert-validity-days --below 10`
 <br></br>
 <br></br>
@@ -59,6 +61,7 @@ Most bos commands follow the following format.
 4. `bos chain-deposit`: Generates address and QR code to deposit funds to your onchain wallet.
 - Options:
   - `amount`: generate an address to deposit a specific amount. `bos chain-deposit 100000`.
+   <br></br>
 - Example: `bos chain-deposit` or `bos chain-deposit 100000`
 <br></br>
 <br></br>
@@ -67,6 +70,7 @@ Most bos commands follow the following format.
 - Flags:
   - `blocks`: Fees estimate based on block confirmation target
   - `file`: Enter path to a JSON file to write the out of the command to.
+   <br></br>
 - Example: `bos chainfees --blocks 10 --file /home/umbrel/blocks.json`
 <br></br>
 <br></br>
@@ -74,6 +78,7 @@ Most bos commands follow the following format.
 6. `bos chart-chain-fees`: Gives you a chart and total onchain fees you paid in the last 60 days (default and can be changed)
   - Flags:
     - `days`: Produces a chart for the last number of days specified.
+     <br></br>
   Example: `bos chart-chain-fees --days 90`
   <br></br>
 <br></br>
@@ -84,6 +89,7 @@ Most bos commands follow the following format.
   - Flags:
     - `days`: Produces a chart for the last number of days specified.
     - `count`: Give you a count of the number of forwards instead of sats
+     <br></br>
   Example: `bos chart-chain-earned --days 90`
   <br></br>
 <br></br>
@@ -95,6 +101,7 @@ Most bos commands follow the following format.
     - `network`: Fees paid to the network who are not your peers, example are other hops in a rebalance or payment made.
     - `peer`: Fees paid only to your peers excluding the others in the network
     - `rebalances`: shows only fees paid for rebalances or payments made to yourself
+     <br></br>
   Example: `bos chart-fees-paid --days 15 --rebalances`
   <br></br>
 <br></br>
@@ -102,6 +109,7 @@ Most bos commands follow the following format.
 9. `bos chart-payments-received`: Gives you a chart of all payments received on your node like keysends and settled invoices.
   - Flags:
     - `days`: Produces a chart for the last number of days specified.
+     <br></br>
   Example: `bos chart-payments-received --days 15 --rebalances`
   <br></br>
 <br></br>
@@ -119,6 +127,7 @@ Most bos commands follow the following format.
     - `days`: Sets the number of days the credentials produced expire in
     - `readonly`: Outputs credentials that can only be used for read only
     - `nospend`: Outputs credentials that do not let you spend funds on the node
+     <br></br>
   Example: `bos credentials --cleartext --days 200 --readonly`
     <br></br>
   <br></br>
@@ -128,6 +137,7 @@ Most bos commands follow the following format.
   - Flags:
     - `set-fee-rate`: Lets you set fee rate in ppm
     - `to`: Specify the public key of the peer you want to set fee rate to, multiple public keys can be passed.
+     <br></br>
   Example: `bos fees --set-fee-rate 1000 --to pubkey1 --to pubkey2`
   <br></br>
 <br></br>
@@ -154,6 +164,7 @@ Most bos commands follow the following format.
     - `dryrun`: Does a dryrun and prevents your funds (UTXOs) from getting locked.
     - `utxo`: Enter a specific tx_id:vout that you want to use to fund.
     - `select-utxos`: Opens an interactive view to select your spendable UTXOs, use "Space" to select a UTXO and hit "Enter" when done.
+     <br></br>
   Example: `bos fund addressToFund amountToFund --select-utxos`
   <br></br>
 <br></br>
@@ -171,6 +182,7 @@ Most bos commands follow the following format.
   - Flags:
     - `filter`: Set a filter to filter returned results, example `--filter CAPACITY>1000000` returns channels with peers greater than 1M capacity.
     - `sort`: Sorts the rows in the table by the column specified. example `--sort out_fee`
+     <br></br>
   - Example: `bos graph Bitrefill --sort in_fee` 
 <br></br>
 <br></br>
@@ -179,6 +191,7 @@ Most bos commands follow the following format.
   - Flags:
     - `rule`: Select the rule you want to set, examples are `CAPACITY>5000000` to only allow inbound channels of more than 5M capacity. `CAPACITIES>100*M` to only allow an inbound channel if the peer has a total of 1BTC capacity of all public channels put together. Other examples include `PUBLIC_KEY`, `CHANNEL_AGES`, `FEE_RATES` etc.
     - `reason` sends back a reason message when rejecting an inbound channel.
+     <br></br>
   Example: `bos inbound-channel-rules --rule CAPACITY>5000000 --message "Will only accept a minimum 5M inbound channel"`
 <br></br>
 <br></br>
@@ -248,6 +261,7 @@ Most bos commands follow the following format.
     - `external-funding`: give you an address for you to sign from your external wallet along with the amount.
     - `set-fee-rate`: waits until the channel is open and attempts to set a forwarding fee rate, this process needs to run in the background until a channel is open. Have to run in background process manager like tmux, nohup or keep the ssh session open
     - `type`: public/private, defaulted to public
+     <br></br>
   Example: `bos open pubkey1 --amount 1000000 pubkey2 --amount 3000000 pubkey3 --amount 4000000`. Once you enter the command and hit enter, it will ask the onchain transaction fee you want to set and also if you want to use your internal LND wallet for funding the transaction.
 <br></br>
 <br></br>
@@ -255,6 +269,7 @@ Most bos commands follow the following format.
 25. `bos balanced-channel-open`: Lets you open a balanced channel with your peer, both peers involved need to have keysend turned on.
   - Flags:
     - `recover`: Enter the address if funds were accidentally sent to it.
+    <br></br>
   Simple running the command `bos balanced-channel-open` will ask you a series of questions to enter, like the `pubkey`, `total capacity` of the channel and the funding `fee rate`. It then key sends all that information to your peer to fund the other half for the channel. Your peer needs to run the same command to accept the request and review all information and agree to it, then the 1st peer or initiator will broadcast the transaction.
   ![Balanced Channel Open](./images/balancedopen.jpg)
 
