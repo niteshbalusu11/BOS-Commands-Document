@@ -58,7 +58,7 @@ Most bos commands follow the following format.
 4. `bos chain-deposit`: Generates address and QR code to deposit funds to your onchain wallet.
 - Options:
   - `amount`: generate an address to deposit a specific amount. `bos chain-deposit 100000`.
-- can be used without the amount argument to set the amount yourself from the wallet you're sending. `bos chain-deposit`
+- Example: `bos chain-deposit` or `bos chain-deposit 100000`
 <br></br>
 
 
