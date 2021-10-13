@@ -271,6 +271,7 @@ Most bos commands follow the following format.
     - `recover`: Enter the address if funds were accidentally sent to it.
     <br></br>
   Simple running the command `bos balanced-channel-open` will ask you a series of questions to enter, like the `pubkey`, `total capacity` of the channel and the funding `fee rate`. It then key sends all that information to your peer to fund the other half for the channel. Your peer needs to run the same command to accept the request and review all information and agree to it, then the 1st peer or initiator will broadcast the transaction.
+  <br></br>
   ![Balanced Channel Open](./images/balancedopen.jpg)
 
 
