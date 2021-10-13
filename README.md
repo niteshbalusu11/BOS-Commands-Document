@@ -48,9 +48,24 @@ Most bos commands follow the following format.
 3. `bos cert-validity-days`: Returns how many days your certificate is valid.
 - Flags: 
   - `below`: returns number of days below a certain number
+- Example: `bos cert-validity-days --below 10`
 <br></br>
 
-4. 
+4. `bos chain-deposit`: Generates address and QR code to deposit funds to your onchain wallet.
+- Arguments:
+  - `amount`: generate an address to deposit a specific amount. `bos chain-deposit 100000`.
+- can be used without the amount argument to set the amount yourself from the wallet you're sending. `bos chain-deposit`
+<br></br>
+
+5. `bos chainfees`: Gives you an estimate of the chain-fees for various confirmation targets
+- Flags:
+  - `blocks`: Fees estimate based on block confirmation target
+  - `file`: Enter path to a JSON file to write the out of the command to.
+- Example: `bos chainfees --blocks 10 --file /home/umbrel/blocks.json`
+<br></br>
+
+6. 
+
 
 
 
