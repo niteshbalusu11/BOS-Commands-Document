@@ -120,7 +120,8 @@ Most bos commands follow the following format.
 
 10. `bos closed`: Returns a list of confirmed channel closures.
   - Flags:
-    - `limit`: Limits the number of records returned.  
+    - `limit`: Limits the number of records returned.
+    <br></br>
   Example: `bos closed --limit 20`
 <br></br>
 <br></br>
@@ -149,6 +150,7 @@ Most bos commands follow the following format.
 13. `bos find`: Lets you find something that is stored in the data base, like a transaction, payment information, peer info, channel ID etc.
   - Arguments:
       - Takes differnt kinds arguments:
+      <br></br>
     Example: `bos find 703539x1305x0` `bos find Bitrefill` `bos find 02816caed43171d3c9854e3b0ab2cf0c42be086ff1bd4005acc2a5f7db70d83774`
   <br></br>
 <br></br>
@@ -157,6 +159,8 @@ Most bos commands follow the following format.
   - Flags:
     - `days`: Table view only shows forwards per peer for the last number of days selected
     - `complete`: Shows complete results in a non table format
+<br></br>
+  Example: `bos forwards --days 15`
 <br></br>
 <br></br>
 
@@ -208,6 +212,8 @@ Most bos commands follow the following format.
     - `max-fee-rate` set a maximum fee rate filter
     - `top` returns liquidity in the top percentile for an individual channel
 <br></br>
+  Example: `bos inbound-liquidity` or `bos inbound-liquidity --max-fee-rate 200`
+<br></br>
 <br></br>
 
 20. `bos increase-inbound-liquidity`: Helps increase your inbound liquidity by doing a loop out.
@@ -222,6 +228,8 @@ Most bos commands follow the following format.
     - `max-fee`: max fees you're willing to pay in total for the swap
     - `recover`: you can use the recovery key provided by bos to recover funds in an inprogress swap
     - `with`: specify the pubkey of the peer you want to increase inbound liquidity for
+  <br></br>
+  Example: `bos increate-inbound-liquidity --with yourPeerPubkey --max-fee 2000 --dryrun`
 <br></br>
 <br></br>
 
@@ -232,6 +240,8 @@ Most bos commands follow the following format.
     - `private`: opens a private channel
     - `with`: enter the pubkey to open channel with
     - `dryrun`: avoids opening the channel but gives you a summary of the channel open
+  <br></br>
+ Example: `bos increate-outbound-liquidity --with yourPeerPubkey --max-fee 2000 --dryrun`
 <br></br>
 <br></br>
 
@@ -264,7 +274,7 @@ Most bos commands follow the following format.
     - `amount`: capacity of the channel in Sats you want to open, can specify a separate amount if batch opening channels, default 5M sats if not specified
     - `external-funding`: give you an address for you to sign from your external wallet along with the amount. **IF USING EXTERNAL WALLET, DO NOT BROADCAST THE TRANSACTION FROM THE EXTERNAL WALLET, BOS WILL DO IT FOR YOU**
     - `set-fee-rate`: waits until the channel is open and attempts to set a forwarding fee rate, this process needs to run in the background until a channel is open. Have to run in background process manager like tmux, nohup or keep the ssh session open
-    - `type`: public/private, defaulted to public
+    - `type`: public/private, default: public
      <br></br>
   Example: `bos open pubkey1 --amount 1000000 pubkey2 --amount 3000000 pubkey3 --amount 4000000`. Once you enter the command and hit enter, it will ask the onchain transaction fee you want to set and also if you want to use your internal LND wallet for funding the transaction.
 <br></br>
@@ -286,6 +296,8 @@ Most bos commands follow the following format.
     - `below` returns tokens below a number you specify
     - `with` with a specific peer public key
     - `top` returns liquidity in the top percentile for an individual channel
+  <br></br>
+  Example: `bos outbound-liquidity` or `bos outbound-liquidity --with yourPeerPubkey`
 <br></br>
 <br></br>
 
@@ -451,7 +463,8 @@ Most bos commands follow the following format.
   <br></br>
   Example: `bos tags bannedNodes --add 03c2abfa93eacec04721c019644584424aab2ba4dff3ac9bdab4e9c97007491dda`.
   Simply running `bos tags` will display all your tags. Tags are stored in `~/.bos` folder, you can also edit your tags by editing the `tags.json` file.
-
+<br></br>
+<br></br>
 
 36. `bos utxos`: Returns a list of your UTXOS.
   - Flags:
