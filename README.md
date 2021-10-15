@@ -253,12 +253,12 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-24. `bos open`: Helps to open channels to the network, batch opening and funding from external/cold wallet is supported.
+24. `bos open`: Helps to open channels to the network, batch opening and funding from external/cold wallet is supported. **IF USING EXTERNAL WALLET, DO NOT BROADCAST THE TRANSACTION FROM THE EXTERNAL WALLET, BOS WILL DO IT FOR YOU**
   - Arguments:
     `pubkey`: public key of the node you want to open a channel to. Can enter multiple with a space in between.
   - Flags:
     - `amount`: capacity of the channel in Sats you want to open, can specify a separate amount if batch opening channels, default 5M sats if not specified
-    - `external-funding`: give you an address for you to sign from your external wallet along with the amount.
+    - `external-funding`: give you an address for you to sign from your external wallet along with the amount. **IF USING EXTERNAL WALLET, DO NOT BROADCAST THE TRANSACTION FROM THE EXTERNAL WALLET, BOS WILL DO IT FOR YOU**
     - `set-fee-rate`: waits until the channel is open and attempts to set a forwarding fee rate, this process needs to run in the background until a channel is open. Have to run in background process manager like tmux, nohup or keep the ssh session open
     - `type`: public/private, defaulted to public
      <br></br>
@@ -266,13 +266,77 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-25. `bos balanced-channel-open`: Lets you open a balanced channel with your peer, both peers involved need to have keysend turned on.
+25. `bos open-balanced-channel`: Lets you open a balanced channel with your peer, both peers involved need to have keysend turned on. Funding from external/cold wallet is supported. **IF USING EXTERNAL WALLET, DO NOT BROADCAST THE TRANSACTION FROM THE EXTERNAL WALLET, BOS WILL DO IT FOR YOU**
   - Flags:
     - `recover`: Enter the address if funds were accidentally sent to it.
     <br></br>
-  Simple running the command `bos balanced-channel-open` will ask you a series of questions to enter, like the `pubkey`, `total capacity` of the channel and the funding `fee rate`. It then key sends all that information to your peer to fund the other half for the channel. Your peer needs to run the same command to accept the request and review all information and agree to it, then the 1st peer or initiator will broadcast the transaction.
+  Simple running the command `bos open-balanced-channel` will ask you a series of questions to enter, like the `pubkey`, `total capacity` of the channel and the funding `fee rate`. It then key sends all that information to your peer to fund the other half for the channel. Your peer needs to run the same command to accept the request and review all information and agree to it, then the 1st peer or initiator will broadcast the transaction.
   <br></br>
   ![Balanced Channel Open](./images/balancedopen.jpg)
+  <br></br>
+<br></br>
+
+26. `bos outbound-liquidity`: Returns your total inbound liquidity you currently have
+  - Flags:
+    - `above` returns tokens above a number you specify
+    - `below` returns tokens below a number you specify
+    - `with` with a specific peer public key
+    - `top` returns liquidity in the top percentile for an individual channel
+<br></br>
+<br></br>
+
+27. `bos pay`: This command is used to pay a payment request (Invoice)
+  - Arguments:
+    - `request`: Enter the invoice you want to pay
+  - Flags:
+    - `avoid`: When paying the payment request you can set to avoid a node by enter a public key or a specific channel by entering a channel ID. You can also avoid multiple nodes/channels by using the avoid flag multiple times. You can also use a `tag` (more on this in a separate command below) to avoid a group of nodes or channels by grouping them together.
+    - `out`: Pay the payment request out from a specifc peer of yours so the first hop is through that peer.
+    - `in`: Enter a pubkeyif you want the last hop to be through a specific in peer of the destination node.
+    Note: If you create an invoice yourself, and you pay it using an out peer and an in peer of yours, it becomes a command that can you do rebalance with.
+    - `message`: Enter a message of your choice to be attached to the payment request
+    - `max-fee`: Max total routing fees you're willing to pay in order to pay the payment req. Default: 1337
+    - `max-paths`: You can use multi path payments to pay the payment req via multiple paths, bos splits the payment and sends it out. Default: 1
+    <br></br>
+    Example: `bos pay invoiceToBePaid --avoid 03f10c03894188447dbf0a88691387972d93416cc6f2f6e0c0d3505b38f6db8eb5 --avoid bannedNodes --out 02c91d6aa51aa940608b497b6beebcb1aec05be3c47704b682b3889424679ca490 --avoid bannedNodes --max-fee 100`
+    <br></br> 
+    Here `bannedNodes` is an example tagname.
+<br></br>
+<br></br>
+
+28. `bos peers`: Lists your current peers that you have channels with in a table view.
+  - Flags:
+    - `active`: Shows all your active peers (not offline)
+    - `complete`: Outputs a detailed view and does not use the table view.
+    - `fee-days`: If you enter the number of days, it shows the peers you have earned fees with over N number of days along with the fees earned in a separate column
+    - `filter`: You can apply filter formulas to display results, filter takes the column names as the filters, they include AGE, INBOUND_LIQUIDITY, OUTBOUND_LIQUIDITY. You can use filters like this `OUTBOUND_LIQUIDITY>100000` and it will filter results accordingly. You can also formula expressions like `m` for million and `k` for 100k, example `OUTBOUND_LIQUIDITY<1*m`
+    - `idle-days`: If you enter the number of days, it shows the peers you had no activity over N number of days, it includes both routing and payments received
+    - `inbound-below`: shows peers only below a certain inbound liquidity number
+    - `outbound-below`: shows peers only below a certain outbound liquidity number
+    - `omit`: enter a public key to omit that peer from the list
+    - `private`: shows peers you have private channels with
+    - `public`: shows peers you have public channels with
+    - `sort`: you can sort by column name, example: `sort OUTBOUND_LIQUIDITY`
+    - `tag`: show peers that you have added to your tag, more on this in another command called `bos tags` below.
+       <br></br> 
+    Example: `bos peers --active --filter OUTBOUND_LIQUIDITY>5*M --idle days 10`
+<br></br>
+<br></br>
+
+29. `bos price`: Shows the current price of Bitcoin from the rate provider coindesk (default)
+  - Options:
+    - `symbols`: You can use currency ticker symbols to get the price in the fiat currency of your choice. Example: `bos price AUD` for Australian Dollar, `GBP` for British Pound, its defaulted to `USD`
+  - Flags:
+    - `file`: Enter the path to a JSON file to write the output to a file
+    - `from`: You can change the rate provider from coindesk (default) to coingecko
+       <br></br> 
+  Example: `bos price GBP --from coingecko` or just `bos price` for USD and from coindesk
+<br></br>
+<br></br>
+
+
+  
+
+
 
 
 
