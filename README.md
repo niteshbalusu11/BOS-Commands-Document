@@ -15,6 +15,10 @@ Most bos commands follow the following format.
 4. All bos commands can use a node flag that can be used to call any saved node you might have saved in the `~/.bos` directory. If you have multiple nodes you can remotely control your node from bos. Example: `bos peers --node=alice` where alice is the name of your saved node.
 
 <br></br>
+
+### **Always double check with `bos commandName -h` before running a command**
+<br></br>
+
 ## Commands List:
 
 1. `bos accounting`: There are 6 different categories for accounting:
@@ -375,7 +379,7 @@ Most bos commands follow the following format.
     **Note: Specify both values during a rebalance, the rebalance will fail if it finds a route and does not satisfy one of the criterias**
     - `--minutes 20` the rebalance will time out after 20 miniutes of path finding, the time-out occurs if the rebalance does not succeed/fail within the specified time.
     - `--avoid ban` "ban" is the name of the tag that I created, a tag can be named anything of your choice and you can add multiple pubkeys to the tag to categorize nodes. In this example, nodes specified in the tag "ban" will be avoided during path finding. 
-  - Avoid Filters:
+  - **Avoid Filters:**
     - avoid flag can take filter formulas along with a pubkey to filter channels of the pubkey during path finding. 
     - Syntax: `--avoid pubkey/forumla`: If the syntax is pubkey followed by formula, the filter applies to channels of the node specified in the outbound direction.
     - Syntax: `--avoid formula/pubkey`: If the syntax is formula followed by pubkey, the filter applies to channels of the node specified in the inbound direction.
@@ -383,18 +387,77 @@ Most bos commands follow the following format.
     - `--avoid "035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226/OR(FEE_RATE<80 , FEE_RATE>500)"`, the pubkey specified in the filter belongs to WalletOfSatoshi.com, this formula implies you want to avoid all channels of WalletOfSatoshi that they charge less than 80ppm or greater than 500ppm. For example, if you just want to avoid a peer's channels greater than 200ppm the syntax is: `--avoid "pubkey/FEE_RATE>200)`
     - `--avoid "035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226/HEIGHT<680000"` the pubkey specified in the filter belongs to WalletOfSatoshi.com, this formula implies you want to avoid all channels of WalletOfSatoshi that were created before the block height of 600000, this block was mined on `2021-04-21 05:58` which implies you want to avoid all your WalletOfSatoshi's channels that were created before that date. The theory behind this could be, all old channels might not be well maintained and might not have liquidity in the direction you want.
     - `--avoid "035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226/opposite_fee_rate<100"` the pubkey specified in the filter belongs to WalletOfSatoshi.com, this formula implies you want avoid all channels of WalletOfSatoshi.com where the opposite_fee_rate is less than 100 or the rate which WalletOfSatoshi's peers charge them to route in the opposite direction, this is the fee rate that does NOT apply to you in the path finding because its in the opposite direction. The purpose of this filter is, a lot of nodes today are using dynamic fee rates to indicate to the network the direction in which they have liquidity using tools like charge-lnd. In the formula, by specifying you want to avoid low fee rates in the opposite direction you're effectively saying you want to avoid channels of WoS that are charging low because the liquidity is on the side of WoS's peers which is not the direction you need it for your rebalance to succeed. If the fee is high in the opposite direction an assumption can be made that liquidity is on WoS's side which is favorable for the success of your rebalance.
-  - **Example of 2nd syntax:**
+  - **Example of inbound 2nd syntax:**
     - `--avoid "fee_rate<50/0296b46141cd8baf13f3eff9bb217c5f62ce0a871886559d661af0ef422c042d4b"` the pubkey specified in the filter belongs to EDON, this formula implies you want avoid all channels of coming into EDON that charge less than 50 ppm.
-    - Similar syntax can be applied to all other filters
+    - Similar inbound syntax can be applied to all other filters mentioned above.
+    <br></br>
+    **Note: Avoid formulas can be applied to any node in the graph, it is not limited to just your peers, you can replace the public key with any public key of your choice.**
+  - **Using --out-filter and --in-filter**
+    - If you create tags for your peers (check the tags command on how to create tags), you can use them for rebalances. instead of specifying `--out` and `--in` peer you can specify a group of nodes you want and bos can pick from those nodes to do rebalances with. Usage: `bos rebalance --out-filter outTagName --in-filter inTagName --out-target-inbound=capacity*0.85 --max-fee-rate 700 --max-fee 2000 --minutes 20 --avoid ban`
+<br></br>
+<br></br>
+
+32. `bos reconnect`: This command attempts to reconnect any disconnected peers, channels that are inactive are also treated as disconnected. DO NOT use this command with the `--node` flag.<br></br>
+  Example: `bos reconnect`, you can set to run a reconnect automatically in a cronjob like this: `*/300 * * * * /home/ubuntu/.npm-global/bin/bos reconnect`, this runs the command every 5 hours. Adjust your path according to where bos is installed on your node.
+<br></br>
+<br></br>
+
+33. `bos remove-peer`: Closes a channel with a connected peer.
+  - Options:
+    - `public key`: Enter the public key of the peer you want to close the channel with.
+  - Flags:
+    - `active`: Makes sure the peer is online before closing the channel to ensure a coop close.
+    - `address`: if you want to send funds that you get back (your local balance) straight to an external wallet, enter the destination address.
+    - `fee-rate`: Set the fee rate for the closure.
+    - `force`: Force close channel with a peer
+    - `inbound-below`: close channels with peers below a certain inbound liquidity level
+    - `outbound-below`: close channels with peers whose outbound is below a certain number
+    - `omit`: omit a peer you don't want to close a channel with if they fall under filter criteria of other flags such as `inbound-below`
+    - `outpoint`: if you have multiple channels with the same peer, use this flag to only close one specific channel using `txid:vout`, you can get this value from `lncli listchannels`
+    - `private`: make sure you have a private channel with the peer
+    - `public`: make sure you have a public channel with the peer
+    - `offline`: check if the peer is offline
+    <br></br>
+  Example: `bos remove-peer  pubkeyOfYourPeer --fee-rate 1 --force`
+<br></br>
+<br></br>
+
+34. `bos send`: This command is used to make a keysend payment using a node's pubkey.
+  - Arguments:
+    - `pubkey`: Enter the pubkey of the node you want to make a payment to.
+  - Flags:
+    - `avoid`: When paying the payment request you can set to avoid a node by entering a public key or a specific channel by entering a channel ID. You can also avoid multiple nodes/channels by using the avoid flag multiple times. You can also use a `tag` (more on this in a separate command below) to avoid a group of nodes or channels by grouping them together.
+    - `out`: Keysend out from a specifc peer of yours so the first hop is through that peer.
+    - `in`: Enter a pubkey if you want the last hop to be through a specific in peer of the destination node.
+    Note: If you enter your own pubkey, you can keysend using an out peer and an in peer of yours, it becomes a command that can you do rebalance with. Useful for rebalances below 50k sats since `bos rebalance` does not support rebalances below 50k sats.
+    - `message`: Enter a message of your choice to be attached to the keysend
+    - `max-fee`: Max total routing fees you're willing to pay in order to pay the payment req. Default: 1337
+    - `max-paths`: You can use multi path payments to pay the payment req via multiple paths, bos splits the payment and sends it out. Default: 1
+    - `message-omit-from-key`: BOS by default adds your pubkey to the keysend message, you can add this flag to avoid it.
+    <br></br>
+    Example: `bos send pubKeytoPay --avoid 03f10c03894188447dbf0a88691387972d93416cc6f2f6e0c0d3505b38f6db8eb5 --avoid bannedNodes --out 02c91d6aa51aa940608b497b6beebcb1aec05be3c47704b682b3889424679ca490 --avoid bannedNodes --max-fee 100`
+    <br></br> 
+    Here `bannedNodes` is an example tagname.
+<br></br>
+<br></br>
+
+35. `bos tags`: This commands allows you to create custom tags to categorize your peers. You can create a tag name of your choice and add pubkeys of nodes to the tags.
+  - Options:
+    - `tagname`: Enter a tagname you want to create or an existing tag that you already have.
+  - Flags:
+    - `add`: add a public key to a tag
+    - `remove`: remove a public key from a tag
+    - `icon`: you can add an emoji to your tag
+  <br></br>
+  Example: `bos tags bannedNodes --add 03c2abfa93eacec04721c019644584424aab2ba4dff3ac9bdab4e9c97007491dda`.
+  Simply running `bos tags` will display all your tags. Tags are stored in `~/.bos` folder, you can also edit your tags by editing the `tags.json` file.
 
 
-  
-
-
-
-
-
-
-
-
-
+36. `bos utxos`: Returns a list of your UTXOS.
+  - Flags:
+    - `confirmed`: returns only confirmed utxos.
+    - `count`: returns the number of utxos you have available in pending and confirmed
+    - `count-below`: returns a utxos count number below the number you specified
+    - `size`: returns utxos greater than the specified amount
+  <br></br>
+  Example: `bos utxos` or `bos utxos --confirmed --count`
