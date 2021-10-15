@@ -32,16 +32,16 @@ Most bos commands follow the following format.
 - Usage example: `bos accounting chain-fees`. Displays amounts spent on chain-fees in a table.
 - Flags: 
   - `--csv`: outputs the accounting results to a csv file: Example: `bos accounting chain-fees --csv > chainfees.csv`
-  - `disable-fiat`: Disables the usage of fiat in accounting, it defaults to sats as the unit or account.
+  - `disable-fiat`: Disables the usage of fiat in accounting, it defaults to sats as the unit of account.
   - `month`: select the month number to get accounting only for that specific month. `bos accounting forwards --month 8` returns results for August.
-  - `rate-provider`: BOS provides two rate providers, coindesk and coingecko to provide accounting in fiat, this flag is defaulted to coindesk. To switch provider if the other provider is down or results take too long to pop-up use `bos accounting forwards --rate-provider coingecko`
-  - `year`: returns accounting results for a specifc year, it can be used in combination with month or separately to reults for the entire year. `bos accounting payments --month 10 --year 2021`
+  - `rate-provider`: BOS provides two rate providers, coindesk and coingecko to provide accounting in fiat, this flag is defaulted to coindesk. To switch provider if the default provider is down or results take too long to pop-up use `bos accounting forwards --rate-provider coingecko`
+  - `year`: returns accounting results for a specifc year, it can be used in combination with month or separately to display results for the entire year. `bos accounting payments --month 10 --year 2021`
 - Flags can be used together, example: `bos accounting forwards --month 10 --disable-fiat`
 <br></br>
 <br></br>
 
 
-2. `bos balance`: Gives total of on-chain, off-chain, pending and commit fees.
+2. `bos balance`: Gives total balance of on-chain, off-chain, pending and commit fees.
 - Flags:
   - `above`: Returns balance above a certain number, `bos balance --above 10000`
   - `below`: Returns balance below a certain number, `bos balance --below 10000`
@@ -73,7 +73,7 @@ Most bos commands follow the following format.
 5. `bos chainfees`: Gives you an estimate of the chain-fees for various confirmation targets
 - Flags:
   - `blocks`: Fees estimate based on block confirmation target
-  - `file`: Enter path to a JSON file to write the out of the command to.
+  - `file`: Enter path to a JSON file to write the output of the command to.
    <br></br>
   Example: `bos chainfees --blocks 10 --file /home/umbrel/blocks.json`
 <br></br>
@@ -81,7 +81,7 @@ Most bos commands follow the following format.
 
 6. `bos chart-chain-fees`: Gives you a chart and total onchain fees you paid in the last 60 days (default and can be changed)
   - Flags:
-    - `days`: Produces a chart for the last number of days specified.
+    - `days`: Produces a chart for the last N number of days specified.
      <br></br>
   Example: `bos chart-chain-fees --days 90`
   <br></br>
@@ -91,7 +91,7 @@ Most bos commands follow the following format.
   - Options:
     - `pubkey`: Enter the pubkey of for the peer to get the routing fees earned via a specific peer.
   - Flags:
-    - `days`: Produces a chart for the last number of days specified.
+    - `days`: Produces a chart for the last N number of days specified.
     - `count`: Give you a count of the number of forwards instead of sats
      <br></br>
   Example: `bos chart-chain-earned --days 90`
@@ -100,9 +100,9 @@ Most bos commands follow the following format.
 
 8. `bos chart-fees-paid`: Gives you a chart and total routing fees you paid in the last 60 days (default and can be changed)
   - Flags:
-    - `days`: Produces a chart for the last number of days specified.
+    - `days`: Produces a chart for the last N number of days specified.
     - `most-fees`: Gives a table for fees paid per peer/network and amount forwarded per peer.
-    - `network`: Fees paid to the network who are not your peers, example are other hops in a rebalance or payment made.
+    - `network`: Fees paid to the network who are not your peers, example are other hops in a rebalance or a payment you made.
     - `peer`: Fees paid only to your peers excluding the others in the network
     - `rebalances`: shows only fees paid for rebalances or payments made to yourself
      <br></br>
@@ -112,7 +112,7 @@ Most bos commands follow the following format.
 
 9. `bos chart-payments-received`: Gives you a chart of all payments received on your node like keysends and settled invoices.
   - Flags:
-    - `days`: Produces a chart for the last number of days specified.
+    - `days`: Produces a chart for the last N number of days specified.
      <br></br>
   Example: `bos chart-payments-received --days 15 --rebalances`
   <br></br>
@@ -128,7 +128,7 @@ Most bos commands follow the following format.
 
 11. `bos credentials`: Outputs credentials to access your node. Needs to be used in combination with `bos nodes --add`. Running the command without any flag will ask you a question to enter a pubkey to transfer the credentials in an encrypted way.
   - Flags:
-    - `cleartext`: Outputs a cleartext format of macaroon, cert and socket and the credentials expire with default number of days=365
+    - `cleartext`: Outputs a cleartext format of macaroon, cert and socket and the credentials expire with default number of 365 days
     - `days`: Sets the number of days the credentials produced expire in
     - `readonly`: Outputs credentials that can only be used for read only
     - `nospend`: Outputs credentials that do not let you spend funds on the node
@@ -140,24 +140,24 @@ Most bos commands follow the following format.
 
 12. `bos fees`: Gives a chart of fees rates set per peer. Base fees is not included.
   - Flags:
-    - `set-fee-rate`: Lets you set fee rate in ppm
+    - `set-fee-rate`: Lets you set fee rate in ppm, you can use this set fee rate to a channel that is pending open, this requires the SSH session to be open while it attempts to set fees until the channel opens
     - `to`: Specify the public key of the peer you want to set fee rate to, multiple public keys can be passed.
      <br></br>
   Example: `bos fees --set-fee-rate 1000 --to pubkey1 --to pubkey2`
   <br></br>
 <br></br>
 
-13. `bos find`: Lets you find something that is stored in the data base, like a transaction, payment information, peer info, channel ID etc.
+13. `bos find`: Lets you find something that is stored in the data base, like a transaction, payment information, peer info, channel information etc.
   - Arguments:
       - Takes differnt kinds arguments:
       <br></br>
-    Example: `bos find 703539x1305x0` `bos find Bitrefill` `bos find 02816caed43171d3c9854e3b0ab2cf0c42be086ff1bd4005acc2a5f7db70d83774`
+    Example: `bos find 703539x1305x0` OR `bos find Bitrefill` OR `bos find 02816caed43171d3c9854e3b0ab2cf0c42be086ff1bd4005acc2a5f7db70d83774`
   <br></br>
 <br></br>
 
-14. `bos forwards`: Outputs a chart of forwards that took place from both inbound and outbound.
+14. `bos forwards`: Outputs a chart of forwards that took place from both inbound and outbound peers.
   - Flags:
-    - `days`: Table view only shows forwards per peer for the last number of days selected
+    - `days`: Table view only shows forwards per peer for the last N number of days selected
     - `complete`: Shows complete results in a non table format
 <br></br>
   Example: `bos forwards --days 15`
@@ -172,8 +172,9 @@ Most bos commands follow the following format.
     - `dryrun`: Does a dryrun and prevents your funds (UTXOs) from getting locked.
     - `utxo`: Enter a specific tx_id:vout that you want to use to fund.
     - `select-utxos`: Opens an interactive view to select your spendable UTXOs, use "Space" to select a UTXO and hit "Enter" when done.
+    - `fee-rate`: Set onchain fee rate for the funding transaction in sats/vByte.
      <br></br>
-  Example: `bos fund addressToFund amountToFund --select-utxos`
+  Example: `bos fund addressToFund amountToFund --select-utxos --fee-rate 1`
   <br></br>
 <br></br>
 
@@ -197,10 +198,10 @@ Most bos commands follow the following format.
 
 18. `bos inbound-channel-rules`: Sets rules for other peers to open channels to you. It takes formulas as the as the rule.
   - Flags:
-    - `rule`: Select the rule you want to set, examples are `CAPACITY>5000000` to only allow inbound channels of more than 5M capacity. `CAPACITIES>100*M` to only allow an inbound channel if the peer has a total of 1BTC capacity of all public channels put together. Other examples include `PUBLIC_KEY`, `CHANNEL_AGES`, `FEE_RATES` etc.
+    - `rule`: Select the rule you want to set, examples are `CAPACITY>5000000` to only allow inbound channels of more than 5M capacity. `CAPACITIES>100*M` to only allow an inbound channel if the peer has a total of 1BTC capacity from all public channels put together. Other examples include `PUBLIC_KEY`, `CHANNEL_AGES`, `FEE_RATES` etc.
     - `reason` sends back a reason message when rejecting an inbound channel.
      <br></br>
-  Example: `bos inbound-channel-rules --rule CAPACITY>5000000 --message "Will only accept a minimum 5M inbound channel"`
+  Example: `bos inbound-channel-rules --rule CAPACITY>=5000000 --message "Will only accept a minimum 5M inbound channel"`
 <br></br>
 <br></br>
 
@@ -222,11 +223,11 @@ Most bos commands follow the following format.
     - `api-key`: specify a prepaid API key to use
     - `avoid`: avoid certain pubkeys or channels IDs while taking the path to LOOP. You can use this with `bos tags` and set an avoid tag
     - `confs`: Number of onchain confirmations to consider you have received the funds successfully, defaulted to 1
-    - `dryrun`: Does not actually loop out but can give you an estimation of how much amount can be looped out and how much it would cost in offchain fees
+    - `dryrun`: Does not actually loop out but can give you an estimation of how much amount can be looped out and how much it would cost in routing fees
     - `fast`: Request LOOP server to avoid batching your onchain transaction
     - `amount`: amount you want to increase inbound liquidity by
     - `max-fee`: max fees you're willing to pay in total for the swap
-    - `recover`: you can use the recovery key provided by bos to recover funds in an inprogress swap
+    - `recover`: you can use the recovery key provided by bos to recover funds in an in-progress swap
     - `with`: specify the pubkey of the peer you want to increase inbound liquidity for
   <br></br>
   Example: `bos increate-inbound-liquidity --with yourPeerPubkey --max-fee 2000 --dryrun`
@@ -241,7 +242,7 @@ Most bos commands follow the following format.
     - `with`: enter the pubkey to open channel with
     - `dryrun`: avoids opening the channel but gives you a summary of the channel open
   <br></br>
- Example: `bos increate-outbound-liquidity --with yourPeerPubkey --max-fee 2000 --dryrun`
+ Example: `bos increase-outbound-liquidity --with yourPeerPubkey --max-fee 2000 --dryrun`
 <br></br>
 <br></br>
 
@@ -253,10 +254,12 @@ Most bos commands follow the following format.
     - `max-fee-rate`: set a maximum fee rate filter
     - `top`: returns liquidity in the top percentile for an individual channel
     - `with`: specify the pubkey of a peer to return liquidity with that peer.
+    <br></br>
+  Example: `bos outbound-liquidity` or `bos outbound-liquidity --max-fee-rate 200`
 <br></br>
 <br></br>
 
-23. `bos nodes`: Adds a saved node to for you to control remotely
+23. `bos nodes`: Adds a saved node for you to control remotely
   - Options: 
     - `nodeName`: Enter the name of the node, new or existing
   - Flags:
@@ -269,7 +272,7 @@ Most bos commands follow the following format.
 
 24. `bos open`: Helps to open channels to the network, batch opening and funding from external/cold wallet is supported. **IF USING EXTERNAL WALLET, DO NOT BROADCAST THE TRANSACTION FROM THE EXTERNAL WALLET, BOS WILL DO IT FOR YOU**
   - Arguments:
-    `pubkey`: public key of the node you want to open a channel to. Can enter multiple with a space in between.
+    - `pubkey`: public key of the node you want to open a channel to. Can enter multiple with a space in between.
   - Flags:
     - `amount`: capacity of the channel in Sats you want to open, can specify a separate amount if batch opening channels, default 5M sats if not specified
     - `external-funding`: give you an address for you to sign from your external wallet along with the amount. **IF USING EXTERNAL WALLET, DO NOT BROADCAST THE TRANSACTION FROM THE EXTERNAL WALLET, BOS WILL DO IT FOR YOU**
@@ -305,9 +308,9 @@ Most bos commands follow the following format.
   - Arguments:
     - `request`: Enter the invoice you want to pay
   - Flags:
-    - `avoid`: When paying the payment request you can set to avoid a node by entering a public key or a specific channel by entering a channel ID. You can also avoid multiple nodes/channels by using the avoid flag multiple times. You can also use a `tag` (more on this in a separate command below) to avoid a group of nodes or channels by grouping them together.
+    - `avoid`: When paying the payment request you can set to avoid a node by entering a public key or a specific channel by entering a channel ID. You can also avoid multiple nodes/channels by using the avoid flag multiple times. You can also use a `bos tag` (more on this in a separate command below) to avoid a group of nodes or channels by grouping them together.
     - `out`: Pay the payment request out from a specifc peer of yours so the first hop is through that peer.
-    - `in`: Enter a pubkeyif you want the last hop to be through a specific in peer of the destination node.
+    - `in`: Enter a pubkey if you want the last hop to be through a specific in peer of the destination node.
     Note: If you create an invoice yourself, and you pay it using an out peer and an in peer of yours, it becomes a command that can you do rebalance with.
     - `message`: Enter a message of your choice to be attached to the payment request
     - `max-fee`: Max total routing fees you're willing to pay in order to pay the payment req. Default: 1337
@@ -315,7 +318,7 @@ Most bos commands follow the following format.
     <br></br>
     Example: `bos pay invoiceToBePaid --avoid 03f10c03894188447dbf0a88691387972d93416cc6f2f6e0c0d3505b38f6db8eb5 --avoid bannedNodes --out 02c91d6aa51aa940608b497b6beebcb1aec05be3c47704b682b3889424679ca490 --avoid bannedNodes --max-fee 100`
     <br></br> 
-    Here `bannedNodes` is an example tagname.
+    Here `bannedNodes` is an example `bos tag` name.
 <br></br>
 <br></br>
 
@@ -324,7 +327,7 @@ Most bos commands follow the following format.
     - `active`: Shows all your active peers (not offline)
     - `complete`: Outputs a detailed view and does not use the table view.
     - `fee-days`: If you enter the number of days, it shows the peers you have earned fees with over N number of days along with the fees earned in a separate column
-    - `filter`: You can apply filter formulas to display results, filter takes the column names as the filters, they include AGE, INBOUND_LIQUIDITY, OUTBOUND_LIQUIDITY. You can use filters like this `OUTBOUND_LIQUIDITY>100000` and it will filter results accordingly. You can also formula expressions like `m` for million and `k` for 100k, example `OUTBOUND_LIQUIDITY<1*m`
+    - `filter`: You can apply filter formulas to display results, filter takes the column names as the filters, they include AGE, INBOUND_LIQUIDITY, OUTBOUND_LIQUIDITY. You can use filters like this `OUTBOUND_LIQUIDITY>100000` and it will filter results accordingly. You can also use formula expressions like `m` for million and `k` for 100k, example `OUTBOUND_LIQUIDITY<1*m`
     - `idle-days`: If you enter the number of days, it shows the peers you had no activity over N number of days, it includes both routing and payments received
     - `inbound-below`: shows peers only below a certain inbound liquidity number
     - `outbound-below`: shows peers only below a certain outbound liquidity number
@@ -349,13 +352,13 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-30. `bos probe`: Simulate a payment of a certain amount will go through using specific conditions, probing sends junk HTLCs to check if a real payment can go though. Can be used to check rebalance routes as well or check the approximate liquidity available on a node via a particular channel.
+30. `bos probe`: Simulate a payment for a certain amount and it will be simulated through the conditions specified, probing sends junk HTLCs to check if a real payment can go though. Can be used to check rebalance routes, payment routes as well or check the approximate liquidity available on a node via a particular channel.
   - Arguments:
     - `pubkey`: Enter the destination pubkey you want to probe, can be yours as well if you want to probe yourself for a rebalance.
   - Options:
     - `amount`: Amount you want to probe for
   - Flags:
-     - `avoid`: When probing you can set to avoid a node by entering a public key or a specific channel by entering a channel ID. You can also avoid multiple nodes/channels by using the avoid flag multiple times. You can also use a `tag` (more on this in a separate command below) to avoid a group of nodes or channels by grouping them together.
+     - `avoid`: When probing you can set to avoid a node by entering a public key or a specific channel by entering a channel ID. You can also avoid multiple nodes/channels by using the avoid flag multiple times. You can also use a `bos tag` (more on this in a separate command below) to avoid a group of nodes or channels by grouping them together.
     - `out`: Probe out from a specifc peer of yours so the first hop is through that peer.
     - `in`: Enter a pubkey if you want the last hop to be through a specific in peer of the destination node.
     Note: If you enter your pubkey, and you probe it using an out peer and an in peer of yours, it becomes a command that can you simulate a rebalance with.
@@ -365,52 +368,53 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-31. `bos rebalance`: Rebalancing your channels by moving liquidity between your peers. A rebalance moves local funds from one peer to another peer of yours which helps in gaining inbound liquidity in the channel the funds are leaving and gaining outbound liquidity in the channel the funds are arriving.
+31. `bos rebalance`: Rebalances your channels by moving liquidity between your peers. A rebalance moves local funds from one peer to another peer of yours which helps in gaining inbound liquidity in the channel the funds are leaving and gaining outbound liquidity in the channel the funds are arriving.
   - Flags:
     - `amount`: The maximum amount you want to rebalance
     - `out`: this flag can take the pubkey or Alias of your peer, its the first hop where you want the funds to leave from.
     - `in`: this flag can take the pubkey or Alias of your peer, its the last hop where the funds arrive into.
-    - `avoid`: this can take pubkey, channel ID or a `bos tag` where you can group multiple pubkeys to avoid while doing a rebalance. Avoid can take filters as well, explained in example below.
-    - `in-target-outbound`: the amount of outbound you want to target for the peer where the funds are coming into.
-    - `out-target-inbound`: the amount of inbound you want to target for the peer through which the funds are going out of.
+    - `avoid`: this can take pubkey, channel ID or a `bos tag` (more on this in a separate command below) where you can group multiple pubkeys to avoid while doing a rebalance. Avoid can take filters as well, explained in example below.
+    - `in-target-outbound`: the amount of outbound you want to target for a peer's channel where the funds are coming into.
+    - `out-target-inbound`: the amount of inbound you want to target for a peer's channel through which the funds are going out of.
     - `max-fee-rate`: the maximum fee rate in ppm that you want to pay for your rebalance
     - `max-fee`: the maximum total fees in sats that you want to pay for your rebalance
     - `minutes`: the maximum time you want the rebalance to run if it does not succeed or fail within the time you specified. The command will time-out after N number of minutes you specify.
-    - `in-filter`: the set of in-peers you want the rebalance to filter through, this option is used with tags.
-    - `out-filter`: the set of out-peers you want the rebalance to filter through, this option is used with tags.
+    - `in-filter`: the set of in-peers you want the rebalance to filter through, this option is used with `bos tags`.
+    - `out-filter`: the set of out-peers you want the rebalance to filter through, this option is used with `bos tags`.
     <br></br>
   Example: ` bos rebalance --out "WalletOfSatoshi.com" --in "EDON" --out-target-inbound=capacity*0.85 --max-fee-rate 700 --max-fee 2000 --minutes 20 --avoid ban --avoid "035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226/OR(FEE_RATE<80 , FEE_RATE>500)" 
 --avoid "035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226/HEIGHT<600000" --avoid "035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226/opposite_fee_rate<100" --avoid "fee_rate<50/0296b46141cd8baf13f3eff9bb217c5f62ce0a871886559d661af0ef422c042d4b"`
 <br></br>
 - **Breaking down this example:**
-    - `--out "WalletOfSatoshi.com"` is the peer where funds local funds move out from so it's the peer you want to gain inbound.
-    - `-- in "EDON" is the peer where funds leaving from the WalletOfSatoshi.com channel are coming into and local balance is increased or outbound is gained.
-    - `--out-target-inbound=capacity*0.85` This flag indicates that you want the channel with WalletOfSatoshi.com to have inbound of 85% of the total channel capacity, for example, if you have a 1M channel with WoS, you're targetting 850K of inbound. If you want a 50-50 channel with WoS, it would be `--out-target-inbound=capacity*0.5` OR `--out-target-inbound=capacity/2`
+    - `--out "WalletOfSatoshi.com"` is the peer's channel where local funds move out from so it's the peer you want to gain inbound.
+    - `-- in "EDON"` is the peer's channel where funds leaving from the WalletOfSatoshi.com channel are coming into and local balance is increased or outbound is gained.
+    - `--out-target-inbound=capacity*0.85` This flag indicates that you want the channel with WalletOfSatoshi.com to have inbound liquidity of 85% of the total channel capacity, for example, if you have a 1M channel with WoS, you're targetting 850K of inbound. If you want a 50-50 channel with WoS, it would be `--out-target-inbound=capacity*0.5` OR `--out-target-inbound=capacity/2`
     - `--max-fee-rate 700` is the maximum fee rate in ppm you're willing to pay for the total rebalance
     - `--max-fee 2000` is the total maxmimum fee in sats you're willing to pay for the rebalance including base fee. <br></br>
-    **Note: Specify both values during a rebalance, the rebalance will fail if it finds a route and does not satisfy one of the criterias**
-    - `--minutes 20` the rebalance will time out after 20 miniutes of path finding, the time-out occurs if the rebalance does not succeed/fail within the specified time.
-    - `--avoid ban` "ban" is the name of the tag that I created, a tag can be named anything of your choice and you can add multiple pubkeys to the tag to categorize nodes. In this example, nodes specified in the tag "ban" will be avoided during path finding. 
+    **Note: Specify both values during a rebalance, the rebalance will fail if it finds a route and does not satisfy one of the criterias**<br></br>
+    - `--minutes 20` the rebalance will time out after 20 minutes of path finding, the time-out occurs if the rebalance does not succeed/fail within the specified time.
+    - `--avoid ban` "ban" is the name of the `bos tag` that I created, a tag can be named anything of your choice and you can add multiple pubkeys to the tag to categorize nodes. In this example, nodes specified in the tag "ban" will be avoided during path finding. 
   - **Avoid Filters:**
-    - avoid flag can take filter formulas along with a pubkey to filter channels of the pubkey during path finding. 
+    - avoid flag can take filter formulas along with a pubkey to filter channels of the pubkey specified during path finding. 
     - Syntax: `--avoid pubkey/forumla`: If the syntax is pubkey followed by formula, the filter applies to channels of the node specified in the outbound direction.
     - Syntax: `--avoid formula/pubkey`: If the syntax is formula followed by pubkey, the filter applies to channels of the node specified in the inbound direction.
   - **Example Breakdown Continued:**
     - `--avoid "035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226/OR(FEE_RATE<80 , FEE_RATE>500)"`, the pubkey specified in the filter belongs to WalletOfSatoshi.com, this formula implies you want to avoid all channels of WalletOfSatoshi that they charge less than 80ppm or greater than 500ppm. For example, if you just want to avoid a peer's channels greater than 200ppm the syntax is: `--avoid "pubkey/FEE_RATE>200)`
-    - `--avoid "035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226/HEIGHT<680000"` the pubkey specified in the filter belongs to WalletOfSatoshi.com, this formula implies you want to avoid all channels of WalletOfSatoshi that were created before the block height of 600000, this block was mined on `2021-04-21 05:58` which implies you want to avoid all your WalletOfSatoshi's channels that were created before that date. The theory behind this could be, all old channels might not be well maintained and might not have liquidity in the direction you want.
+    - `--avoid "035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226/HEIGHT<680000"` the pubkey specified in the filter belongs to WalletOfSatoshi.com, this formula implies you want to avoid all channels of WalletOfSatoshi that were created before the block height of 680000, this block was mined on `2021-04-21 05:58` which implies you want to avoid all your WalletOfSatoshi's channels that were created before that date. The reason for using this could be, all old channels might not be well maintained and might not have liquidity in the direction you want.
     - `--avoid "035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226/opposite_fee_rate<100"` the pubkey specified in the filter belongs to WalletOfSatoshi.com, this formula implies you want avoid all channels of WalletOfSatoshi.com where the opposite_fee_rate is less than 100 or the rate which WalletOfSatoshi's peers charge them to route in the opposite direction, this is the fee rate that does NOT apply to you in the path finding because its in the opposite direction. The purpose of this filter is, a lot of nodes today are using dynamic fee rates to indicate to the network the direction in which they have liquidity using tools like charge-lnd. In the formula, by specifying you want to avoid low fee rates in the opposite direction you're effectively saying you want to avoid channels of WoS that are charging low because the liquidity is on the side of WoS's peers which is not the direction you need it for your rebalance to succeed. If the fee is high in the opposite direction an assumption can be made that liquidity is on WoS's side which is favorable for the success of your rebalance.
   - **Example of inbound 2nd syntax:**
     - `--avoid "fee_rate<50/0296b46141cd8baf13f3eff9bb217c5f62ce0a871886559d661af0ef422c042d4b"` the pubkey specified in the filter belongs to EDON, this formula implies you want avoid all channels of coming into EDON that charge less than 50 ppm.
     - Similar inbound syntax can be applied to all other filters mentioned above.
     <br></br>
     **Note: Avoid formulas can be applied to any node in the graph, it is not limited to just your peers, you can replace the public key with any public key of your choice.**
+    <br></br>
   - **Using --out-filter and --in-filter**
-    - If you create tags for your peers (check the tags command on how to create tags), you can use them for rebalances. instead of specifying `--out` and `--in` peer you can specify a group of nodes you want and bos can pick from those nodes to do rebalances with. Usage: `bos rebalance --out-filter outTagName --in-filter inTagName --out-target-inbound=capacity*0.85 --max-fee-rate 700 --max-fee 2000 --minutes 20 --avoid ban`
+    - If you create `bos tags` for your peers (check the tags command on how to create tags), you can use them for rebalances. instead of specifying `--out` and `--in` peer you can specify a group of nodes you want and bos can pick from those nodes to do rebalances with. Usage: `bos rebalance --out-filter outTagName --in-filter inTagName --out-target-inbound=capacity*0.85 --max-fee-rate 700 --max-fee 2000 --minutes 20 --avoid ban`
 <br></br>
 <br></br>
 
 32. `bos reconnect`: This command attempts to reconnect any disconnected peers, channels that are inactive are also treated as disconnected. DO NOT use this command with the `--node` flag.<br></br>
-  Example: `bos reconnect`, you can set to run a reconnect automatically in a cronjob like this: `*/300 * * * * /home/ubuntu/.npm-global/bin/bos reconnect`, this runs the command every 5 hours. Adjust your path according to where bos is installed on your node.
+  Example: `bos reconnect`, you can set to run a reconnect automatically in a cronjob like this: Run `crontab -e`, add this line and save it. `*/300 * * * * /home/ubuntu/.npm-global/bin/bos reconnect /bin/timeout -s 2 30`, this runs the command every 5 hours. **Adjust your path according to where bos is installed on your node.** Running `which bos` can you give your path.
 <br></br>
 <br></br>
 
@@ -430,7 +434,7 @@ Most bos commands follow the following format.
     - `public`: make sure you have a public channel with the peer
     - `offline`: check if the peer is offline
     <br></br>
-  Example: `bos remove-peer  pubkeyOfYourPeer --fee-rate 1 --force`
+  Example: `bos remove-peer  pubkeyOfYourPeer --fee-rate 1 --force`. **You can quickly do `ctrl + c` if you accidentally selected the wrong peer.**
 <br></br>
 <br></br>
 
@@ -438,7 +442,7 @@ Most bos commands follow the following format.
   - Arguments:
     - `pubkey`: Enter the pubkey of the node you want to make a payment to.
   - Flags:
-    - `avoid`: When paying the payment request you can set to avoid a node by entering a public key or a specific channel by entering a channel ID. You can also avoid multiple nodes/channels by using the avoid flag multiple times. You can also use a `tag` (more on this in a separate command below) to avoid a group of nodes or channels by grouping them together.
+    - `avoid`: When paying via keysend you can set to avoid a node by entering a public key or a specific channel by entering a channel ID. You can also avoid multiple nodes/channels by using the avoid flag multiple times. You can also use a `bos tag` (more on this in a separate command below) to avoid a group of nodes or channels by grouping them together.
     - `out`: Keysend out from a specifc peer of yours so the first hop is through that peer.
     - `in`: Enter a pubkey if you want the last hop to be through a specific in peer of the destination node.
     Note: If you enter your own pubkey, you can keysend using an out peer and an in peer of yours, it becomes a command that can you do rebalance with. Useful for rebalances below 50k sats since `bos rebalance` does not support rebalances below 50k sats.
@@ -449,7 +453,7 @@ Most bos commands follow the following format.
     <br></br>
     Example: `bos send pubKeytoPay --avoid 03f10c03894188447dbf0a88691387972d93416cc6f2f6e0c0d3505b38f6db8eb5 --avoid bannedNodes --out 02c91d6aa51aa940608b497b6beebcb1aec05be3c47704b682b3889424679ca490 --avoid bannedNodes --max-fee 100`
     <br></br> 
-    Here `bannedNodes` is an example tagname.
+    Here `bannedNodes` is an example `bos tag` name.
 <br></br>
 <br></br>
 
@@ -462,7 +466,7 @@ Most bos commands follow the following format.
     - `icon`: you can add an emoji to your tag
   <br></br>
   Example: `bos tags bannedNodes --add 03c2abfa93eacec04721c019644584424aab2ba4dff3ac9bdab4e9c97007491dda`.
-  Simply running `bos tags` will display all your tags. Tags are stored in `~/.bos` folder, you can also edit your tags by editing the `tags.json` file.
+  Simply running `bos tags` will display all your tags. Tags are stored in `~/.bos` folder, you can also edit your tags by editing the `tags.json` file. You can use `bos tags` in rebalance, peers, send, pay etc commands.
 <br></br>
 <br></br>
 
