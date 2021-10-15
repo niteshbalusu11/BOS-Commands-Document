@@ -289,7 +289,7 @@ Most bos commands follow the following format.
   - Arguments:
     - `request`: Enter the invoice you want to pay
   - Flags:
-    - `avoid`: When paying the payment request you can set to avoid a node by enter a public key or a specific channel by entering a channel ID. You can also avoid multiple nodes/channels by using the avoid flag multiple times. You can also use a `tag` (more on this in a separate command below) to avoid a group of nodes or channels by grouping them together.
+    - `avoid`: When paying the payment request you can set to avoid a node by entering a public key or a specific channel by entering a channel ID. You can also avoid multiple nodes/channels by using the avoid flag multiple times. You can also use a `tag` (more on this in a separate command below) to avoid a group of nodes or channels by grouping them together.
     - `out`: Pay the payment request out from a specifc peer of yours so the first hop is through that peer.
     - `in`: Enter a pubkeyif you want the last hop to be through a specific in peer of the destination node.
     Note: If you create an invoice yourself, and you pay it using an out peer and an in peer of yours, it becomes a command that can you do rebalance with.
@@ -332,6 +332,60 @@ Most bos commands follow the following format.
   Example: `bos price GBP --from coingecko` or just `bos price` for USD and from coindesk
 <br></br>
 <br></br>
+
+30. `bos probe`: Simulate a payment of a certain amount will go through using specific conditions, probing sends junk HTLCs to check if a real payment can go though. Can be used to check rebalance routes as well or check the approximate liquidity available on a node via a particular channel.
+  - Arguments:
+    - `pubkey`: Enter the destination pubkey you want to probe, can be yours as well if you want to probe yourself for a rebalance.
+  - Options:
+    - `amount`: Amount you want to probe for
+  - Flags:
+     - `avoid`: When probing you can set to avoid a node by entering a public key or a specific channel by entering a channel ID. You can also avoid multiple nodes/channels by using the avoid flag multiple times. You can also use a `tag` (more on this in a separate command below) to avoid a group of nodes or channels by grouping them together.
+    - `out`: Probe out from a specifc peer of yours so the first hop is through that peer.
+    - `in`: Enter a pubkey if you want the last hop to be through a specific in peer of the destination node.
+    Note: If you enter your pubkey, and you probe it using an out peer and an in peer of yours, it becomes a command that can you simulate a rebalance with.
+    - `find-max`: Find the maximum amount you can route when you simulate a payment
+     <br></br> 
+  Example: `bos probe 03f10c03894188447dbf0a88691387972d93416cc6f2f6e0c0d3505b38f6db8eb5 3000000 --out 02c91d6aa51aa940608b497b6beebcb1aec05be3c47704b682b3889424679ca490 --avoid crapNodes`
+<br></br>
+<br></br>
+
+31. `bos rebalance`: Rebalancing your channels by moving liquidity between your peers. A rebalance moves local funds from one peer to another peer of yours which helps in gaining inbound liquidity in the channel the funds are leaving and gaining outbound liquidity in the channel the funds are arriving.
+  - Flags:
+    - `amount`: The maximum amount you want to rebalance
+    - `out`: this flag can take the pubkey or Alias of your peer, its the first hop where you want the funds to leave from.
+    - `in`: this flag can take the pubkey or Alias of your peer, its the last hop where the funds arrive into.
+    - `avoid`: this can take pubkey, channel ID or a `bos tag` where you can group multiple pubkeys to avoid while doing a rebalance. Avoid can take filters as well, explained in example below.
+    - `in-target-outbound`: the amount of outbound you want to target for the peer where the funds are coming into.
+    - `out-target-inbound`: the amount of inbound you want to target for the peer through which the funds are going out of.
+    - `max-fee-rate`: the maximum fee rate in ppm that you want to pay for your rebalance
+    - `max-fee`: the maximum total fees in sats that you want to pay for your rebalance
+    - `minutes`: the maximum time you want the rebalance to run if it does not succeed or fail within the time you specified. The command will time-out after N number of minutes you specify.
+    - `in-filter`: the set of in-peers you want the rebalance to filter through, this option is used with tags.
+    - `out-filter`: the set of out-peers you want the rebalance to filter through, this option is used with tags.
+    <br></br>
+  Example: ` bos rebalance --out "WalletOfSatoshi.com" --in "EDON" --out-target-inbound=capacity*0.85 --max-fee-rate 700 --max-fee 2000 --minutes 20 --avoid ban --avoid "035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226/OR(FEE_RATE<80 , FEE_RATE>500)" 
+--avoid "035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226/HEIGHT<600000" --avoid "035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226/opposite_fee_rate<100" --avoid "fee_rate<50/0296b46141cd8baf13f3eff9bb217c5f62ce0a871886559d661af0ef422c042d4b"`
+<br></br>
+- **Breaking down this example:**
+    - `--out "WalletOfSatoshi.com"` is the peer where funds local funds move out from so it's the peer you want to gain inbound.
+    - `-- in "EDON" is the peer where funds leaving from the WalletOfSatoshi.com channel are coming into and local balance is increased or outbound is gained.
+    - `--out-target-inbound=capacity*0.85` This flag indicates that you want the channel with WalletOfSatoshi.com to have inbound of 85% of the total channel capacity, for example, if you have a 1M channel with WoS, you're targetting 850K of inbound. If you want a 50-50 channel with WoS, it would be `--out-target-inbound=capacity*0.5` OR `--out-target-inbound=capacity/2`
+    - `--max-fee-rate 700` is the maximum fee rate in ppm you're willing to pay for the total rebalance
+    - `--max-fee 2000` is the total maxmimum fee in sats you're willing to pay for the rebalance including base fee. <br></br>
+    **Note: Specify both values during a rebalance, the rebalance will fail if it finds a route and does not satisfy one of the criterias**
+    - `--minutes 20` the rebalance will time out after 20 miniutes of path finding, the time-out occurs if the rebalance does not succeed/fail within the specified time.
+    - `--avoid ban` "ban" is the name of the tag that I created, a tag can be named anything of your choice and you can add multiple pubkeys to the tag to categorize nodes. In this example, nodes specified in the tag "ban" will be avoided during path finding. 
+  - Avoid Filters:
+    - avoid flag can take filter formulas along with a pubkey to filter channels of the pubkey during path finding. 
+    - Syntax: `--avoid pubkey/forumla`: If the syntax is pubkey followed by formula, the filter applies to channels of the node specified in the outbound direction.
+    - Syntax: `--avoid formula/pubkey`: If the syntax is formula followed by pubkey, the filter applies to channels of the node specified in the inbound direction.
+  - **Example Breakdown Continued:**
+    - `--avoid "035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226/OR(FEE_RATE<80 , FEE_RATE>500)"`, the pubkey specified in the filter belongs to WalletOfSatoshi.com, this formula implies you want to avoid all channels of WalletOfSatoshi that they charge less than 80ppm or greater than 500ppm. For example, if you just want to avoid a peer's channels greater than 200ppm the syntax is: `--avoid "pubkey/FEE_RATE>200)`
+    - `--avoid "035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226/HEIGHT<680000"` the pubkey specified in the filter belongs to WalletOfSatoshi.com, this formula implies you want to avoid all channels of WalletOfSatoshi that were created before the block height of 600000, this block was mined on `2021-04-21 05:58` which implies you want to avoid all your WalletOfSatoshi's channels that were created before that date. The theory behind this could be, all old channels might not be well maintained and might not have liquidity in the direction you want.
+    - `--avoid "035e4ff418fc8b5554c5d9eea66396c227bd429a3251c8cbc711002ba215bfc226/opposite_fee_rate<100"` the pubkey specified in the filter belongs to WalletOfSatoshi.com, this formula implies you want avoid all channels of WalletOfSatoshi.com where the opposite_fee_rate is less than 100 or the rate which WalletOfSatoshi's peers charge them to route in the opposite direction, this is the fee rate that does NOT apply to you in the path finding because its in the opposite direction. The purpose of this filter is, a lot of nodes today are using dynamic fee rates to indicate to the network the direction in which they have liquidity using tools like charge-lnd. In the formula, by specifying you want to avoid low fee rates in the opposite direction you're effectively saying you want to avoid channels of WoS that are charging low because the liquidity is on the side of WoS's peers which is not the direction you need it for your rebalance to succeed. If the fee is high in the opposite direction an assumption can be made that liquidity is on WoS's side which is favorable for the success of your rebalance.
+  - **Example of 2nd syntax:**
+    - `--avoid "fee_rate<50/0296b46141cd8baf13f3eff9bb217c5f62ce0a871886559d661af0ef422c042d4b"` the pubkey specified in the filter belongs to EDON, this formula implies you want avoid all channels of coming into EDON that charge less than 50 ppm.
+    - Similar syntax can be applied to all other filters
 
 
   
