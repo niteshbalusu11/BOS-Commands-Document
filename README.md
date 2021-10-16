@@ -451,7 +451,7 @@ Most bos commands follow the following format.
     - `max-paths`: You can use multi path payments to pay the payment req via multiple paths, bos splits the payment and sends it out. Default: 1
     - `message-omit-from-key`: BOS by default adds your pubkey to the keysend message, you can add this flag to avoid it.
     <br></br>
-    Example: `bos send pubKeytoPay --avoid 03f10c03894188447dbf0a88691387972d93416cc6f2f6e0c0d3505b38f6db8eb5 --avoid bannedNodes --out 02c91d6aa51aa940608b497b6beebcb1aec05be3c47704b682b3889424679ca490 --avoid bannedNodes --max-fee 100`
+    Example: `bos send pubKeytoPay --avoid 03f10c03894188447dbf0a88691387972d93416cc6f2f6e0c0d3505b38f6db8eb5 --avoid bannedNodes --out 02c91d6aa51aa940608b497b6beebcb1aec05be3c47704b682b3889424679ca490 --avoid bannedNodes --max-fee 100 --message "Welcome to plebnet. RTFW plebnet.wiki"`
     <br></br> 
     Here `bannedNodes` is an example `bos tag` name.
 <br></br>
