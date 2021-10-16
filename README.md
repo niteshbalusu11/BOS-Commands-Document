@@ -478,3 +478,41 @@ Most bos commands follow the following format.
     - `size`: returns utxos greater than the specified amount
   <br></br>
   Example: `bos utxos` or `bos utxos --confirmed --count`
+<br></br>
+<br></br>
+
+## **Secret BOS Commands:**
+
+**These commands don't come up in the help section of BOS:** <br></br>
+1. `bos delete-payments-history`: Deletes all your payments (not invoices). Helps in reducing the size of your DB. <br></br>**Important: Make sure to export your payments to a CSV using `bos accounting` if you want to keep a copy of them or need them to do accounting on your node.**
+  - This command has no arguments or flags (except the `--node` flag to use a saved node). Directly run it as `bos delete-payments-history`. 
+  - It may take a LONG TIME for the command to finish executing.
+<br></br>
+<br></br>
+
+2. `bos gift`: Send a routing fee gift to a node of your choice. It executes a rebalance command through that peer so that they make money on routing fees.
+  - Arguments:
+    - `target`: Takes the node pubkey
+    - `amount`: Enter the amount you want to rebalance, the minimum amount you can enter depends on the minimum HTLC size and fee rate of the peer you're gifting routing fees to.
+  <br></br>
+  Example: `bos gift 03c5528c628681aa17ab9e117aa3ee6f06c750dfb17df758ecabcd68f1567ad8c1 100` 
+<br></br>
+<br></br>
+
+3. `bos encrypt`: Encrypts data using your public key or another node's public key. You have to then use the `bos decrypt` command to decrypt the data and can be done only on the node whose key has been used to encrypt.
+  - Options:
+    - `message`: The message to encrypt
+    - `to`: The pubkey of the node you want to encrypt the data for, default: your pubkey.
+    <br></br>
+  Example: `bos encrypt --message "I love plebnet" --to 03c5528c628681aa17ab9e117aa3ee6f06c750dfb17df758ecabcd68f1567ad8c1`
+  <br></br> You can then send the encrypted message to the node you used to encrypt, they can then use `bos decrypt` to decrypt the data.
+  <br></br>
+<br></br>
+
+4. `bos decrypt`: Decrypts the encrypted data from `bos encrypt`
+  - Arguments:
+    - `encrypted data`: Enter the data that needs to be decrypted.
+    <br></br>
+  Example: `bos decrypt bos decrypt a569656e637279707465644ecd12dacf44c83a11e6451bfbe5d362697650f16e8eb72c0e5ec94e31c0f3aaa18f7e6473616c745820c7a8e6540ef1c9ac33d17d82eab6b4a3128300f44b17b60eba9cbceff25e4b276873657474696e6773a669616c676f726974686d6b6165732d3235362d67636d6a64657269766174696f6e66736372797074666469676573746673686135313268656e636f64696e6764757466386a6b65795f6c6`
+
+
