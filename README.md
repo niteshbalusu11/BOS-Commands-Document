@@ -514,5 +514,14 @@ Most bos commands follow the following format.
     - `encrypted data`: Enter the data that needs to be decrypted.
     <br></br>
   Example: `bos decrypt a569656e637279707465644ecd12dacf44c83a11e6451bfbe5d362697650f16e8eb72c0e5ec94e31c0f3aaa18f7e6473616c745820c7a8e6540ef1c9ac33d17d82eab6b4a3128300f44b17b60eba9cbceff25e4b276873657474696e6773a669616c676f726974686d6b6165732d3235362d67636d6a64657269766174696f6e66736372797074666469676573746673686135313268656e636f64696e6764757466386a6b65795f6c6`
+  <br></br>
+<br></br>
+
+5. `bos recover-p2pk`: If you accidentally sent on-chain funds to your public key instead of your wallet address, this command can help you sweep the funds back to your on-chain wallet.
+  - Arguments:
+    `id`: Transaction id of funds sent to p2pk
+    `vout`: Transaction output index of funds sent to p2pk
+  <br></br>
+  Example: `bos recover-p2pk 59qadc75d655cca5fa2qwef5ab87cd39fzxc99f563b9f71e0a5e245680fc6fd5 0 `
 
 
