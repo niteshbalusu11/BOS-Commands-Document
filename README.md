@@ -246,20 +246,7 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-22. `bos outbound-liquidity`: Returns your total outbound liquidity you currently have
-  - Flags:
-    - `above`: returns tokens above a number you specify
-    - `below`: returns tokens below a number you specify
-    - `min-score`: set a minimum fee rate filter
-    - `max-fee-rate`: set a maximum fee rate filter
-    - `top`: returns liquidity in the top percentile for an individual channel
-    - `with`: specify the pubkey of a peer to return liquidity with that peer.
-    <br></br>
-  Example: `bos outbound-liquidity` or `bos outbound-liquidity --max-fee-rate 200`
-<br></br>
-<br></br>
-
-23. `bos nodes`: Adds a saved node for you to control remotely
+22. `bos nodes`: Adds a saved node for you to control remotely
   - Options: 
     - `nodeName`: Enter the name of the node, new or existing
   - Flags:
@@ -270,7 +257,7 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-24. `bos open`: Helps to open channels to the network, batch opening and funding from external/cold wallet is supported. **IF USING EXTERNAL WALLET, DO NOT BROADCAST THE TRANSACTION FROM THE EXTERNAL WALLET, BOS WILL DO IT FOR YOU**
+23. `bos open`: Helps to open channels to the network, batch opening and funding from external/cold wallet is supported. **IF USING EXTERNAL WALLET, DO NOT BROADCAST THE TRANSACTION FROM THE EXTERNAL WALLET, BOS WILL DO IT FOR YOU**
   - Arguments:
     - `pubkey`: public key of the node you want to open a channel to. Can enter multiple with a space in between.
   - Flags:
@@ -283,7 +270,7 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-25. `bos open-balanced-channel`: Lets you open a balanced channel with your peer, both peers involved need to have keysend turned on. Funding from external/cold wallet is supported. **IF USING EXTERNAL WALLET, DO NOT BROADCAST THE TRANSACTION FROM THE EXTERNAL WALLET, BOS WILL DO IT FOR YOU**
+24. `bos open-balanced-channel`: Lets you open a balanced channel with your peer, both peers involved need to have keysend turned on. Funding from external/cold wallet is supported. **IF USING EXTERNAL WALLET, DO NOT BROADCAST THE TRANSACTION FROM THE EXTERNAL WALLET, BOS WILL DO IT FOR YOU**
   - Flags:
     - `recover`: Enter the address if funds were accidentally sent to it.
     <br></br>
@@ -293,7 +280,7 @@ Most bos commands follow the following format.
   <br></br>
 <br></br>
 
-26. `bos outbound-liquidity`: Returns your total inbound liquidity you currently have
+25. `bos outbound-liquidity`: Returns your total inbound liquidity you currently have
   - Flags:
     - `above` returns tokens above a number you specify
     - `below` returns tokens below a number you specify
@@ -304,7 +291,7 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-27. `bos pay`: This command is used to pay a payment request (Invoice)
+26. `bos pay`: This command is used to pay a payment request (Invoice)
   - Arguments:
     - `request`: Enter the invoice you want to pay
   - Flags:
@@ -322,7 +309,7 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-28. `bos peers`: Lists your current peers that you have channels with in a table view.
+27. `bos peers`: Lists your current peers that you have channels with in a table view.
   - Flags:
     - `active`: Shows all your active peers (not offline)
     - `complete`: Outputs a detailed view and does not use the table view.
@@ -341,7 +328,7 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-29. `bos price`: Shows the current price of Bitcoin from the rate provider coindesk (default)
+28. `bos price`: Shows the current price of Bitcoin from the rate provider coindesk (default)
   - Options:
     - `symbols`: You can use currency ticker symbols to get the price in the fiat currency of your choice. Example: `bos price AUD` for Australian Dollar, `GBP` for British Pound, its defaulted to `USD`
   - Flags:
@@ -352,7 +339,7 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-30. `bos probe`: Simulate a payment for a certain amount and it will be simulated through the conditions specified, probing sends junk HTLCs to check if a real payment can go though. Can be used to check rebalance routes, payment routes as well or check the approximate liquidity available on a node via a particular channel.
+29. `bos probe`: Simulate a payment for a certain amount and it will be simulated through the conditions specified, probing sends junk HTLCs to check if a real payment can go though. Can be used to check rebalance routes, payment routes as well or check the approximate liquidity available on a node via a particular channel.
   - Arguments:
     - `pubkey`: Enter the destination pubkey you want to probe, can be yours as well if you want to probe yourself for a rebalance.
   - Options:
@@ -368,7 +355,7 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-31. `bos rebalance`: Rebalances your channels by moving liquidity between your peers. A rebalance moves local funds from one peer to another peer of yours which helps in gaining inbound liquidity in the channel the funds are leaving and gaining outbound liquidity in the channel the funds are arriving.
+30. `bos rebalance`: Rebalances your channels by moving liquidity between your peers. A rebalance moves local funds from one peer to another peer of yours which helps in gaining inbound liquidity in the channel the funds are leaving and gaining outbound liquidity in the channel the funds are arriving.
   - Flags:
     - `amount`: The maximum amount you want to rebalance
     - `out`: this flag can take the pubkey or Alias of your peer, its the first hop where you want the funds to leave from.
@@ -413,12 +400,12 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-32. `bos reconnect`: This command attempts to reconnect any disconnected peers, channels that are inactive are also treated as disconnected. DO NOT use this command with the `--node` flag.<br></br>
+31. `bos reconnect`: This command attempts to reconnect any disconnected peers, channels that are inactive are also treated as disconnected. DO NOT use this command with the `--node` flag.<br></br>
   Example: `bos reconnect`, you can set to run a reconnect automatically in a cronjob like this: Run `crontab -e`, add this line and save it. `*/300 * * * * /home/ubuntu/.npm-global/bin/bos reconnect /bin/timeout -s 2 30`, this runs the command every 5 hours. **Adjust your path according to where bos is installed on your node.** Running `which bos` can you give your path.
 <br></br>
 <br></br>
 
-33. `bos remove-peer`: Closes a channel with a connected peer.
+32. `bos remove-peer`: Closes a channel with a connected peer.
   - Options:
     - `public key`: Enter the public key of the peer you want to close the channel with.
   - Flags:
@@ -438,7 +425,7 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-34. `bos send`: This command is used to make a keysend payment using a node's pubkey.
+33. `bos send`: This command is used to make a keysend payment using a node's pubkey.
   - Arguments:
     - `pubkey`: Enter the pubkey of the node you want to make a payment to.
   - Flags:
@@ -457,7 +444,7 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-35. `bos tags`: This commands allows you to create custom tags to categorize your peers. You can create a tag name of your choice and add pubkeys of nodes to the tags.
+34. `bos tags`: This commands allows you to create custom tags to categorize your peers. You can create a tag name of your choice and add pubkeys of nodes to the tags.
   - Options:
     - `tagname`: Enter a tagname you want to create or an existing tag that you already have.
   - Flags:
@@ -470,7 +457,7 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-36. `bos utxos`: Returns a list of your UTXOS.
+35. `bos utxos`: Returns a list of your UTXOS.
   - Flags:
     - `confirmed`: returns only confirmed utxos.
     - `count`: returns the number of utxos you have available in pending and confirmed
