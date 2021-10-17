@@ -519,8 +519,8 @@ Most bos commands follow the following format.
 
 5. `bos recover-p2pk`: If you accidentally sent on-chain funds to your public key instead of your wallet address, this command can help you sweep the funds back to your on-chain wallet.
   - Arguments:
-    `id`: Transaction id of funds sent to p2pk
-    `vout`: Transaction output index of funds sent to p2pk
+    - `id`: Transaction id of funds sent to p2pk
+    - `vout`: Transaction output index of funds sent to p2pk
   <br></br>
   Example: `bos recover-p2pk 59qadc75d655cca5fa2qwef5ab87cd39fzxc99f563b9f71e0a5e245680fc6fd5 0 `
 
