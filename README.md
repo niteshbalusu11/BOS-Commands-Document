@@ -401,7 +401,7 @@ Most bos commands follow the following format.
 <br></br>
 
 31. `bos reconnect`: This command attempts to reconnect any disconnected peers, channels that are inactive are also treated as disconnected. DO NOT use this command with the `--node` flag.<br></br>
-  Example: `bos reconnect`, you can set to run a reconnect automatically in a cronjob like this: Run `crontab -e`, add this line and save it. `*/300 * * * * /home/ubuntu/.npm-global/bin/bos reconnect /bin/timeout -s 2 30`, this runs the command every 5 hours. **Adjust your path according to where bos is installed on your node.** Running `which bos` can you give your path.
+  Example: `bos reconnect`, you can set to run a reconnect automatically in a cronjob like this: Run `crontab -e`, add this line and save it. `*/300 * * * * /bin/timeout -s 2 30 /home/ubuntu/.npm-global/bin/bos reconnect`, this runs the command every 5 hours. **Adjust your path according to where bos is installed on your node.** Running `which bos` can you give your path.
 <br></br>
 <br></br>
 
