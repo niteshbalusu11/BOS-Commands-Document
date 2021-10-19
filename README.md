@@ -48,6 +48,7 @@ Most bos commands follow the following format.
 - [outbound-liquidity](#outbound-liquidity)
 - [pay](#pay)
 - [peers](#peers)
+- [price](#price)
 - [probe](#probe)
 - [rebalance](#rebalance)
 - [reconnect](#reconnect)
@@ -175,7 +176,8 @@ Gives you a chart of all payments received on your node like keysends and settle
   <br></br>
 <br></br>
 
-10. `bos closed`: Returns a list of confirmed channel closures.
+### closed
+Returns a list of confirmed channel closures.
   - Flags:
     - `limit`: Limits the number of records returned.
     <br></br>
@@ -382,7 +384,7 @@ This command is used to pay a payment request (Invoice)
 <br></br>
 <br></br>
 
-### bos peers
+### peers
 Lists your current peers that you have channels with in a table view.
   - Flags:
     - `active`: Shows all your active peers (not offline)
@@ -402,7 +404,8 @@ Lists your current peers that you have channels with in a table view.
 <br></br>
 <br></br>
 
-28. `bos price`: Shows the current price of Bitcoin from the rate provider coindesk (default)
+### price
+Shows the current price of Bitcoin from the rate provider coindesk (default)
   - Options:
     - `symbols`: You can use currency ticker symbols to get the price in the fiat currency of your choice. Example: `bos price AUD` for Australian Dollar, `GBP` for British Pound, its defaulted to `USD`
   - Flags:
@@ -413,7 +416,7 @@ Lists your current peers that you have channels with in a table view.
 <br></br>
 <br></br>
 
-### bos probe
+### probe
 Simulate a payment for a certain amount and it will be simulated through the conditions specified, probing sends junk HTLCs to check if a real payment can go though. Can be used to check rebalance routes, payment routes as well or check the approximate liquidity available on a node via a particular channel.
   - Arguments:
     - `pubkey`: Enter the destination pubkey you want to probe, can be yours as well if you want to probe yourself for a rebalance.
