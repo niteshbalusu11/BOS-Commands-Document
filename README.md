@@ -19,9 +19,58 @@ Most bos commands follow the following format.
 ### **Always double check with `bos commandName -h` before running a command**
 <br></br>
 
-## Commands List:
+## Commands List
 
-1. `bos accounting`: There are 6 different categories for accounting:
+- [accounting](#accounting)
+- [balance](#balance)
+- [cert-validity-days](#cert-validity-days)
+- [chain-deposit](#chain-deposit)
+- [chainfees](#chainfees)
+- [chart-chain-fees](#chart-chain-fees)
+- [chart-fees-earned](#chart-fees-earned)
+- [chart-fees-paid](#chart-fees-paid)
+- [chart-payments-received](#chart-payments-received)
+- [closed](#closed)
+- [credentials](#credentials)
+- [fees](#fees)
+- [find](#find)
+- [forwards](#forwards)
+- [fund](#fund)
+- [gateway](#gateway)
+- [graph](#graph)
+- [inbound-channel-rules](#inbound-channel-rules)
+- [inbound-liquidity](#inbound-liquidity)
+- [increase-inbound-liquidity](#increase-inbound-liquidity)
+- [increase-outbound-liquidity](#increase-outbound-liquidity)
+- [nodes](#nodes)
+- [open](#open)
+- [open-balanced-channel](#open-balanced-channel)
+- [outbound-liquidity](#outbound-liquidity)
+- [pay](#pay)
+- [peers](#peers)
+- [probe](#probe)
+- [rebalance](#rebalance)
+- [reconnect](#reconnect)
+- [remove-peer](#remove-peer)
+- [send](#send)
+- [tags](#tags)
+- [utxos](#utxos)
+
+<br></br>
+## Secret Commands List
+
+- [delete-payments-history](#delete-payments-history)
+- [gift](#gift)
+- [encrypt](#encrypt)
+- [decrypt](#decrypt)
+- [recover-p2pk](#recover-p2pk)
+
+<br></br>
+
+## Commands:
+
+### accounting
+ There are 6 different categories for accounting:
 - Arguments:
   - `chain-fees`: All on-chain fees paid, example channel opens and closures.
   - `chain-receives`: All onchain payments you receive including any from channel closures.
@@ -41,7 +90,8 @@ Most bos commands follow the following format.
 <br></br>
 
 
-2. `bos balance`: Gives total balance of on-chain, off-chain, pending and commit fees.
+### balance
+Gives total balance of on-chain, off-chain, pending and commit fees.
 - Flags:
   - `above`: Returns balance above a certain number, `bos balance --above 10000`
   - `below`: Returns balance below a certain number, `bos balance --below 10000`
@@ -54,7 +104,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-3. `bos cert-validity-days`: Returns how many days your certificate is valid.
+### cert-validity-days
+Returns how many days your certificate is valid.
 - Flags: 
   - `below`: returns number of days below a certain number
    <br></br>
@@ -62,7 +113,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-4. `bos chain-deposit`: Generates address and QR code to deposit funds to your onchain wallet.
+### chain-deposit
+Generates address and QR code to deposit funds to your onchain wallet.
 - Options:
   - `amount`: generate an address to deposit a specific amount. `bos chain-deposit 100000`.
    <br></br>
@@ -70,7 +122,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-5. `bos chainfees`: Gives you an estimate of the chain-fees for various confirmation targets
+### chainfees
+Gives you an estimate of the chain-fees for various confirmation targets
 - Flags:
   - `blocks`: Fees estimate based on block confirmation target
   - `file`: Enter path to a JSON file to write the output of the command to.
@@ -79,7 +132,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-6. `bos chart-chain-fees`: Gives you a chart and total onchain fees you paid in the last 60 days (default and can be changed)
+### chart-chain-fees
+Gives you a chart and total onchain fees you paid in the last 60 days (default and can be changed)
   - Flags:
     - `days`: Produces a chart for the last N number of days specified.
      <br></br>
@@ -87,7 +141,8 @@ Most bos commands follow the following format.
   <br></br>
 <br></br>
 
-7. `bos chart-fees-earned`: Gives you a chart and total routing fees you earned in the last 60 days (default and can be changed)
+### chart-fees-earned
+Gives you a chart and total routing fees you earned in the last 60 days (default and can be changed)
   - Options:
     - `pubkey`: Enter the pubkey of for the peer to get the routing fees earned via a specific peer.
   - Flags:
@@ -98,7 +153,8 @@ Most bos commands follow the following format.
   <br></br>
 <br></br>
 
-8. `bos chart-fees-paid`: Gives you a chart and total routing fees you paid in the last 60 days (default and can be changed)
+### chart-fees-paid
+Gives you a chart and total routing fees you paid in the last 60 days (default and can be changed)
   - Flags:
     - `days`: Produces a chart for the last N number of days specified.
     - `most-fees`: Gives a table for fees paid per peer/network and amount forwarded per peer.
@@ -110,7 +166,8 @@ Most bos commands follow the following format.
   <br></br>
 <br></br>
 
-9. `bos chart-payments-received`: Gives you a chart of all payments received on your node like keysends and settled invoices.
+### chart-payments-received
+Gives you a chart of all payments received on your node like keysends and settled invoices.
   - Flags:
     - `days`: Produces a chart for the last N number of days specified.
      <br></br>
@@ -126,7 +183,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-11. `bos credentials`: Outputs credentials to access your node. Needs to be used in combination with `bos nodes --add`. Running the command without any flag will ask you a question to enter a pubkey to transfer the credentials in an encrypted way.
+### credentials
+Outputs credentials to access your node. Needs to be used in combination with `bos nodes --add`. Running the command without any flag will ask you a question to enter a pubkey to transfer the credentials in an encrypted way.
   - Flags:
     - `cleartext`: Outputs a cleartext format of macaroon, cert and socket and the credentials expire with default number of 365 days
     - `days`: Sets the number of days the credentials produced expire in
@@ -138,7 +196,8 @@ Most bos commands follow the following format.
   <br></br>
 
 
-12. `bos fees`: Gives a chart of fees rates set per peer. Base fees is not included.
+### fees
+Gives a chart of fees rates set per peer. Base fees is not included.
   - Flags:
     - `set-fee-rate`: Lets you set fee rate in ppm, you can use this set fee rate to a channel that is pending open, this requires the SSH session to be open while it attempts to set fees until the channel opens
     - `to`: Specify the public key of the peer you want to set fee rate to, multiple public keys can be passed.
@@ -147,7 +206,8 @@ Most bos commands follow the following format.
   <br></br>
 <br></br>
 
-13. `bos find`: Lets you find something that is stored in the data base, like a transaction, payment information, peer info, channel information etc.
+### find
+Lets you find something that is stored in the data base, like a transaction, payment information, peer info, channel information etc.
   - Arguments:
       - Takes differnt kinds arguments:
       <br></br>
@@ -155,7 +215,8 @@ Most bos commands follow the following format.
   <br></br>
 <br></br>
 
-14. `bos forwards`: Outputs a chart of forwards that took place from both inbound and outbound peers.
+### forwards 
+Outputs a chart of forwards that took place from both inbound and outbound peers.
   - Flags:
     - `days`: Table view only shows forwards per peer for the last N number of days selected
     - `complete`: Shows complete results in a non table format
@@ -164,7 +225,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-15. `bos fund`: Lets you make a signed transaction to an address and a specific amount to spend your onchain funds.
+### fund 
+Lets you make a signed transaction to an address and a specific amount to spend your onchain funds.
   - Arguments:
     - `address`: Enter the address you're funding.
     - `amount`: Enter the amount you're funding.
@@ -178,14 +240,16 @@ Most bos commands follow the following format.
   <br></br>
 <br></br>
 
-16. `bos gateway`: Stars a LND gateway server on a port that listens to WebUI Access. Connection code has a specific expiry time.
+### gateway
+Stars a LND gateway server on a port that listens to WebUI Access. Connection code has a specific expiry time.
   - Flags:
     - `port`: Starts lisening on a specified port
     - `remote`:  Enter a URL to generate a connection code for a remotegate way that expires at a specific time.
     <br></br>
 <br></br>
 
-17. `bos graph`: Returns a list of connections and other public information of a node.
+### graph
+Returns a list of connections and other public information of a node.
   - Arguments:
     - Takes `pubkey` or `alias` as an option to return output.
   - Flags:
@@ -196,7 +260,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-18. `bos inbound-channel-rules`: Sets rules for other peers to open channels to you. It takes formulas as the as the rule.
+### inbound-channel-rules
+Sets rules for other peers to open channels to you. It takes formulas as the as the rule.
   - Flags:
     - `rule`: Select the rule you want to set, examples are `CAPACITY>5000000` to only allow inbound channels of more than 5M capacity. `CAPACITIES>100*M` to only allow an inbound channel if the peer has a total of 1BTC capacity from all public channels put together. Other examples include `PUBLIC_KEY`, `CHANNEL_AGES`, `FEE_RATES` etc.
     - `reason` sends back a reason message when rejecting an inbound channel.
@@ -205,7 +270,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-19. `bos inbound-liquidity`: Returns your total inbound liquidity you currently have
+### inbound-liquidity 
+Returns your total inbound liquidity you currently have
   - Flags:
     - `above` returns tokens above a number you specify
     - `below` returns tokens below a number you specify
@@ -217,7 +283,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-20. `bos increase-inbound-liquidity`: Helps increase your inbound liquidity by doing a loop out.
+### increase-inbound-liquidity
+Helps increase your inbound liquidity by doing a loop out.
   - Flags:
     - `address`: you can specify an external address to send the looped out onchain funds to
     - `api-key`: specify a prepaid API key to use
@@ -234,7 +301,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-21. `bos increase-outbound-liquidity`: Opens a new channel to increase your outbound liquidity. If you don't specify `with` flag, BOS chooses a peer for you to open a channel to.
+### increase-outbound-liquidity
+Opens a new channel to increase your outbound liquidity. If you don't specify `with` flag, BOS chooses a peer for you to open a channel to.
   - Flags:
     - `amount`: amount to increase liquidity
     - `fee-rate`: set channel open fee rate (sats/vByte)
@@ -246,7 +314,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-22. `bos nodes`: Adds a saved node for you to control remotely
+### nodes 
+Adds a saved node for you to control remotely
   - Options: 
     - `nodeName`: Enter the name of the node, new or existing
   - Flags:
@@ -257,7 +326,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-23. `bos open`: Helps to open channels to the network, batch opening and funding from external/cold wallet is supported. **IF USING EXTERNAL WALLET, DO NOT BROADCAST THE TRANSACTION FROM THE EXTERNAL WALLET, BOS WILL DO IT FOR YOU**
+### open
+Helps to open channels to the network, batch opening and funding from external/cold wallet is supported. **IF USING EXTERNAL WALLET, DO NOT BROADCAST THE TRANSACTION FROM THE EXTERNAL WALLET, BOS WILL DO IT FOR YOU**
   - Arguments:
     - `pubkey`: public key of the node you want to open a channel to. Can enter multiple with a space in between.
   - Flags:
@@ -270,7 +340,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-24. `bos open-balanced-channel`: Lets you open a balanced channel with your peer, both peers involved need to have keysend turned on. Funding from external/cold wallet is supported. **IF USING EXTERNAL WALLET, DO NOT BROADCAST THE TRANSACTION FROM THE EXTERNAL WALLET, BOS WILL DO IT FOR YOU**
+### open-balanced-channel
+Lets you open a balanced channel with your peer, both peers involved need to have keysend turned on. Funding from external/cold wallet is supported. **IF USING EXTERNAL WALLET, DO NOT BROADCAST THE TRANSACTION FROM THE EXTERNAL WALLET, BOS WILL DO IT FOR YOU**
   - Flags:
     - `recover`: Enter the address if funds were accidentally sent to it.
     <br></br>
@@ -280,7 +351,8 @@ Most bos commands follow the following format.
   <br></br>
 <br></br>
 
-25. `bos outbound-liquidity`: Returns your total inbound liquidity you currently have
+### outbound-liquidity
+Returns your total inbound liquidity you currently have
   - Flags:
     - `above` returns tokens above a number you specify
     - `below` returns tokens below a number you specify
@@ -291,7 +363,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-26. `bos pay`: This command is used to pay a payment request (Invoice)
+### pay
+This command is used to pay a payment request (Invoice)
   - Arguments:
     - `request`: Enter the invoice you want to pay
   - Flags:
@@ -309,7 +382,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-27. `bos peers`: Lists your current peers that you have channels with in a table view.
+### bos peers
+Lists your current peers that you have channels with in a table view.
   - Flags:
     - `active`: Shows all your active peers (not offline)
     - `complete`: Outputs a detailed view and does not use the table view.
@@ -339,7 +413,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-29. `bos probe`: Simulate a payment for a certain amount and it will be simulated through the conditions specified, probing sends junk HTLCs to check if a real payment can go though. Can be used to check rebalance routes, payment routes as well or check the approximate liquidity available on a node via a particular channel.
+### bos probe
+Simulate a payment for a certain amount and it will be simulated through the conditions specified, probing sends junk HTLCs to check if a real payment can go though. Can be used to check rebalance routes, payment routes as well or check the approximate liquidity available on a node via a particular channel.
   - Arguments:
     - `pubkey`: Enter the destination pubkey you want to probe, can be yours as well if you want to probe yourself for a rebalance.
   - Options:
@@ -355,7 +430,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-30. `bos rebalance`: Rebalances your channels by moving liquidity between your peers. A rebalance moves local funds from one peer to another peer of yours which helps in gaining inbound liquidity in the channel the funds are leaving and gaining outbound liquidity in the channel the funds are arriving.
+### rebalance
+Rebalances your channels by moving liquidity between your peers. A rebalance moves local funds from one peer to another peer of yours which helps in gaining inbound liquidity in the channel the funds are leaving and gaining outbound liquidity in the channel the funds are arriving.
   - Flags:
     - `amount`: The maximum amount you want to rebalance
     - `out`: this flag can take the pubkey or Alias of your peer, its the first hop where you want the funds to leave from.
@@ -400,12 +476,14 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-31. `bos reconnect`: This command attempts to reconnect any disconnected peers, channels that are inactive are also treated as disconnected. DO NOT use this command with the `--node` flag.<br></br>
+### reconnect
+This command attempts to reconnect any disconnected peers, channels that are inactive are also treated as disconnected. DO NOT use this command with the `--node` flag.<br></br>
   Example: `bos reconnect`, you can set to run a reconnect automatically in a cronjob like this: Run `crontab -e`, add this line and save it. `*/300 * * * * /bin/timeout -s 2 30 /home/ubuntu/.npm-global/bin/bos reconnect`, this runs the command every 5 hours. **Adjust your path according to where bos is installed on your node.** Running `which bos` can you give your path.
 <br></br>
 <br></br>
 
-32. `bos remove-peer`: Closes a channel with a connected peer.
+### remove-peer
+Closes a channel with a connected peer.
   - Options:
     - `public key`: Enter the public key of the peer you want to close the channel with.
   - Flags:
@@ -425,7 +503,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-33. `bos send`: This command is used to make a keysend payment using a node's pubkey.
+### send
+This command is used to make a keysend payment using a node's pubkey.
   - Arguments:
     - `pubkey`: Enter the pubkey of the node you want to make a payment to.
   - Flags:
@@ -444,7 +523,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-34. `bos tags`: This commands allows you to create custom tags to categorize your peers. You can create a tag name of your choice and add pubkeys of nodes to the tags.
+### tags
+This commands allows you to create custom tags to categorize your peers. You can create a tag name of your choice and add pubkeys of nodes to the tags.
   - Options:
     - `tagname`: Enter a tagname you want to create or an existing tag that you already have.
   - Flags:
@@ -457,7 +537,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-35. `bos utxos`: Returns a list of your UTXOS.
+### utxos
+Returns a list of your UTXOS.
   - Flags:
     - `confirmed`: returns only confirmed utxos.
     - `count`: returns the number of utxos you have available in pending and confirmed
@@ -471,13 +552,15 @@ Most bos commands follow the following format.
 ## **Secret BOS Commands:**
 
 **These commands don't come up in the help section of BOS:** <br></br>
-1. `bos delete-payments-history`: Deletes all your payments (not invoices). Helps in reducing the size of your DB. <br></br>**Important: Make sure to export your payments to a CSV using `bos accounting` if you want to keep a copy of them or need them to do accounting on your node.**
+### delete-payments-history
+Deletes all your payments (not invoices). Helps in reducing the size of your DB. <br></br>**Important: Make sure to export your payments to a CSV using `bos accounting` if you want to keep a copy of them or need them to do accounting on your node.**
   - This command has no arguments or flags (except the `--node` flag to use a saved node). Directly run it as `bos delete-payments-history`. 
   - It may take a LONG TIME for the command to finish executing.
 <br></br>
 <br></br>
 
-2. `bos gift`: Send a routing fee gift to a node of your choice. It executes a rebalance command through that peer so that they make money on routing fees.
+### gift
+Send a routing fee gift to a node of your choice. It executes a rebalance command through that peer so that they make money on routing fees.
   - Arguments:
     - `target`: Takes the node pubkey
     - `amount`: Enter the amount you want to rebalance, the minimum amount you can enter depends on the minimum HTLC size and fee rate of the peer you're gifting routing fees to.
@@ -486,7 +569,8 @@ Most bos commands follow the following format.
 <br></br>
 <br></br>
 
-3. `bos encrypt`: Encrypts data using your public key or another node's public key. You have to then use the `bos decrypt` command to decrypt the data and can be done only on the node whose key has been used to encrypt.
+### encrypt
+Encrypts data using your public key or another node's public key. You have to then use the `bos decrypt` command to decrypt the data and can be done only on the node whose key has been used to encrypt.
   - Options:
     - `message`: The message to encrypt
     - `to`: The pubkey of the node you want to encrypt the data for, default: your pubkey.
@@ -496,7 +580,8 @@ Most bos commands follow the following format.
   <br></br>
 <br></br>
 
-4. `bos decrypt`: Decrypts the encrypted data from `bos encrypt`
+### decrypt
+Decrypts the encrypted data from `bos encrypt`
   - Arguments:
     - `encrypted data`: Enter the data that needs to be decrypted.
     <br></br>
@@ -504,7 +589,8 @@ Most bos commands follow the following format.
   <br></br>
 <br></br>
 
-5. `bos recover-p2pk`: If you accidentally sent on-chain funds to your public key instead of your wallet address, this command can help you sweep the funds back to your on-chain wallet.
+### recover-p2pk
+If you accidentally sent on-chain funds to your public key instead of your wallet address, this command can help you sweep the funds back to your on-chain wallet.
   - Arguments:
     - `id`: Transaction id of funds sent to p2pk
     - `vout`: Transaction output index of funds sent to p2pk
