@@ -517,7 +517,6 @@ This command is used to make a keysend payment using a node's pubkey.
     Note: If you enter your own pubkey, you can keysend using an out peer and an in peer of yours, it becomes a command that can you do rebalance with. Useful for rebalances below 50k sats since `bos rebalance` does not support rebalances below 50k sats.
     - `message`: Enter a message of your choice to be attached to the keysend
     - `max-fee`: Max total routing fees you're willing to pay in order to pay the payment req. Default: 1337
-    - `max-paths`: You can use multi path payments to pay the payment req via multiple paths, bos splits the payment and sends it out. Default: 1
     - `message-omit-from-key`: BOS by default adds your pubkey to the keysend message, you can add this flag to avoid it.
     <br></br>
     Example: `bos send pubKeytoPay --avoid 03f10c03894188447dbf0a88691387972d93416cc6f2f6e0c0d3505b38f6db8eb5 --avoid bannedNodes --out 02c91d6aa51aa940608b497b6beebcb1aec05be3c47704b682b3889424679ca490 --avoid bannedNodes --max-fee 100 --message "Welcome to plebnet. RTFW plebnet.wiki"`
