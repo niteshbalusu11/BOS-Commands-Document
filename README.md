@@ -21,50 +21,50 @@ Most bos commands follow the following format.
 
 ## Commands List
 
-- [accounting](#accounting)
-- [balance](#balance)
-- [cert-validity-days](#cert-validity-days)
-- [chain-deposit](#chain-deposit)
-- [chainfees](#chainfees)
-- [chart-chain-fees](#chart-chain-fees)
-- [chart-fees-earned](#chart-fees-earned)
-- [chart-fees-paid](#chart-fees-paid)
-- [chart-payments-received](#chart-payments-received)
-- [closed](#closed)
-- [credentials](#credentials)
-- [fees](#fees)
-- [find](#find)
-- [forwards](#forwards)
-- [fund](#fund)
-- [gateway](#gateway)
-- [graph](#graph)
-- [inbound-channel-rules](#inbound-channel-rules)
-- [inbound-liquidity](#inbound-liquidity)
-- [increase-inbound-liquidity](#increase-inbound-liquidity)
-- [increase-outbound-liquidity](#increase-outbound-liquidity)
-- [nodes](#nodes)
-- [open](#open)
-- [open-balanced-channel](#open-balanced-channel)
-- [outbound-liquidity](#outbound-liquidity)
-- [pay](#pay)
-- [peers](#peers)
-- [price](#price)
-- [probe](#probe)
-- [rebalance](#rebalance)
-- [reconnect](#reconnect)
-- [remove-peer](#remove-peer)
-- [send](#send)
-- [tags](#tags)
-- [utxos](#utxos)
+- [accounting](#accounting) - Do accounting on your node
+- [balance](#balance) - Shows offchain and onchain balances
+- [cert-validity-days](#cert-validity-days) - Shows your certificate validity
+- [chain-deposit](#chain-deposit) - Deposit funds on your on-chain wallet
+- [chainfees](#chainfees) - Shows current on-chain fees
+- [chart-chain-fees](#chart-chain-fees) - On-chain fees you paid
+- [chart-fees-earned](#chart-fees-earned) - Routing fees you earned
+- [chart-fees-paid](#chart-fees-paid) - Routing fees you paid
+- [chart-payments-received](#chart-payments-received) - Payments you received
+- [closed](#closed) - Lists your closed channels
+- [credentials](#credentials) - Generates credentials for your node
+- [fees](#fees) - Set fees to your channels
+- [find](#find) - Query a string
+- [forwards](#forwards) - List your forwards and fees earned
+- [fund](#fund) - Fund an onchain address
+- [gateway](#gateway) - Create a gateway to listen on
+- [graph](#graph) - Get node information from a graph
+- [inbound-channel-rules](#inbound-channel-rules) - Set rules for nodes to open channels to you
+- [inbound-liquidity](#inbound-liquidity) - Shows your inbound liquidity
+- [increase-inbound-liquidity](#increase-inbound-liquidity) - Increase inbound liquidity by looping out
+- [increase-outbound-liquidity](#increase-outbound-liquidity) - Increase inbound liquidity by opening channels
+- [nodes](#nodes) - Configure a saved node
+- [open](#open) - Open channels to nodes
+- [open-balanced-channel](#open-balanced-channel) - Open a balanced channel with a node
+- [outbound-liquidity](#outbound-liquidity) - Shows your outbound liquidity
+- [pay](#pay) - Pay a payment request
+- [peers](#peers) - Displays your peers
+- [price](#price) - Current BTC Price
+- [probe](#probe) - Probes a node with junk payments
+- [rebalance](#rebalance) - Rebalance your channels
+- [reconnect](#reconnect) - Attempt to reconnect to disconnected peers
+- [remove-peer](#remove-peer) - Close a channel with a peer
+- [send](#send) - Keysend payment to a node
+- [tags](#tags) - Create tags for categorizing nodes
+- [utxos](#utxos) - Displays your UTXOs
 
 <br></br>
 ## Secret Commands List
 
-- [delete-payments-history](#delete-payments-history)
-- [gift](#gift)
-- [encrypt](#encrypt)
-- [decrypt](#decrypt)
-- [recover-p2pk](#recover-p2pk)
+- [delete-payments-history](#delete-payments-history) - Delete all your payment history
+- [gift](#gift) - Gift a peer routing fees
+- [encrypt](#encrypt) - Encrypt data with a public key
+- [decrypt](#decrypt) - Decrypt data with a public key
+- [recover-p2pk](#recover-p2pk) - Sweep onchain funds sent to a public key
 
 <br></br>
 
