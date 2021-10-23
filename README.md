@@ -299,7 +299,7 @@ Helps increase your inbound liquidity by doing a loop out.
     - `recover`: you can use the recovery key provided by bos to recover funds in an in-progress swap
     - `with`: specify the pubkey of the peer you want to increase inbound liquidity for
   <br></br>
-  Example: `bos increate-inbound-liquidity --with yourPeerPubkey --max-fee 2000 --dryrun`
+  Example: `bos increase-inbound-liquidity --with yourPeerPubkey --max-fee 2000 --dryrun`
 <br></br>
 <br></br>
 
