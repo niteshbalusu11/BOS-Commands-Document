@@ -475,7 +475,7 @@ Rebalances your channels by moving liquidity between your peers. A rebalance mov
     **Note: Avoid formulas can be applied to any node in the graph, it is not limited to just your peers, you can replace the public key with any public key of your choice.**
     <br></br>
   - **Using --out-filter and --in-filter**
-    - If you create `bos tags` for your peers (check the tags command on how to create tags), you can use them for rebalances. instead of specifying `--out` and `--in` peer you can specify a group of nodes you want and bos can pick from those nodes to do rebalances with. Usage: `bos rebalance --out-filter outTagName --in-filter inTagName --out-target-inbound=capacity*0.85 --max-fee-rate 700 --max-fee 2000 --minutes 20 --avoid ban`
+    - If you create `bos tags` for your peers (check the tags command on how to create tags), you can use them for rebalances. instead of specifying `--out` and `--in` peer you can specify a group of nodes you want and bos can pick from those nodes to do rebalances with. Usage: `bos rebalance --out-filter "inbound_liquidity<1*m" --in-filter "outbound_liquidity<1*m" --out-target-inbound=capacity*0.85 --max-fee-rate 700 --max-fee 2000 --minutes 20 --avoid ban`
 <br></br>
 <br></br>
 
