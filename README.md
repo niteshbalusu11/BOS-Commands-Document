@@ -55,6 +55,7 @@ Most bos commands follow the following format.
 - [remove-peer](#remove-peer) - Close a channel with a peer
 - [send](#send) - Keysend payment to a node
 - [tags](#tags) - Create tags for categorizing nodes
+- [trade-secret](#trade-secret) - Trade between peers by encoding and decoding a secret
 - [utxos](#utxos) - Displays your UTXOs
 
 <br></br>
@@ -536,6 +537,13 @@ This commands allows you to create custom tags to categorize your peers. You can
   <br></br>
   Example: `bos tags bannedNodes --add 03c2abfa93eacec04721c019644584424aab2ba4dff3ac9bdab4e9c97007491dda`.
   Simply running `bos tags` will display all your tags. Tags are stored in `~/.bos` folder, you can also edit your tags by editing the `tags.json` file. You can use `bos tags` in rebalance, peers, send, pay etc commands.
+<br></br>
+<br></br>
+
+### trade-secret
+This commands allows you to trade between peers (p2p trading), for example invite to a telegram group, sell gift card codes and much more.
+  <br></br>
+  Example: Simply run `bos trade-secret`, it will ask you to create a trade or decode a trade. If you create a trade, you'll have to enter the pubkey of the peer you're trading with, a short description of your trade, the secret you're trading and the amount you want to charge for the trade. It will generate a code which you can share with the peer you're trading with. Your peer will then select the `Decode Trade` option and will be presented an invoice to pay and upon paying the invoice, secret is revealed.
 <br></br>
 <br></br>
 
