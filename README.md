@@ -147,6 +147,7 @@ Gives you a chart and total onchain fees you paid in the last 60 days (default a
 Gives you a chart and total routing fees you earned in the last 60 days (default and can be changed)
   - Options:
     - `pubkey`: Enter the pubkey of for the peer to get the routing fees earned via a specific peer.
+    - `tag`: Enter a `bos tag` that returns results earned via peers in the tag
   - Flags:
     - `days`: Produces a chart for the last N number of days specified.
     - `count`: Give you a count of the number of forwards instead of sats
@@ -281,6 +282,7 @@ Returns your total inbound liquidity you currently have
     - `min-score` set a minimum fee rate filter
     - `max-fee-rate` set a maximum fee rate filter
     - `top` returns liquidity in the top percentile for an individual channel
+    - `with` use a `bos tag` to view inbound liquidity with peers in a tag
 <br></br>
   Example: `bos inbound-liquidity` or `bos inbound-liquidity --max-fee-rate 200`
 <br></br>
@@ -361,6 +363,7 @@ Returns your total inbound liquidity you currently have
     - `below` returns tokens below a number you specify
     - `with` with a specific peer public key
     - `top` returns liquidity in the top percentile for an individual channel
+    - `with` use a `bos tag` to view outbound liquidity with peers in a tag
   <br></br>
   Example: `bos outbound-liquidity` or `bos outbound-liquidity --with yourPeerPubkey`
 <br></br>
