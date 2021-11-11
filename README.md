@@ -216,6 +216,7 @@ Lets you find something that is stored in the data base, like a transaction, pay
       - Takes differnt kinds arguments:
       <br></br>
     Example: `bos find 703539x1305x0` OR `bos find Bitrefill` OR `bos find 02816caed43171d3c9854e3b0ab2cf0c42be086ff1bd4005acc2a5f7db70d83774`
+    Find now also returns the size a channel is taking up on the db when you search with Alias or pubkey
   <br></br>
 <br></br>
 
@@ -414,7 +415,7 @@ Shows the current price of Bitcoin from the rate provider coindesk (default)
     - `symbols`: You can use currency ticker symbols to get the price in the fiat currency of your choice. Example: `bos price AUD` for Australian Dollar, `GBP` for British Pound, its defaulted to `USD`
   - Flags:
     - `file`: Enter the path to a JSON file to write the output to a file
-    - `from`: You can change the rate provider from coindesk (default) to coingecko
+    - `from`: You can pick the rate provider from coinbase (default), coindesk or coingecko
        <br></br> 
   Example: `bos price GBP --from coingecko` or just `bos price` for USD and from coindesk
 <br></br>
