@@ -415,7 +415,7 @@ Shows the current price of Bitcoin from the rate provider coindesk (default)
     - `symbols`: You can use currency ticker symbols to get the price in the fiat currency of your choice. Example: `bos price AUD` for Australian Dollar, `GBP` for British Pound, its defaulted to `USD`
   - Flags:
     - `file`: Enter the path to a JSON file to write the output to a file
-    - `from`: You can pick the rate provider from coinbase (default), coindesk or coingecko
+    - `from`: You can pick the rate provider from coindesk (default), coinbase or coingecko
        <br></br> 
   Example: `bos price GBP --from coingecko` or just `bos price` for USD and from coindesk
 <br></br>
