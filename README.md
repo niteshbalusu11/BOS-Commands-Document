@@ -523,6 +523,7 @@ This command is used to make a keysend payment using a node's pubkey.
     - `message`: Enter a message of your choice to be attached to the keysend
     - `max-fee`: Max total routing fees you're willing to pay in order to pay the payment req. Default: 1337
     - `message-omit-from-key`: BOS by default adds your pubkey to the keysend message, you can add this flag to avoid it.
+    - `amount`: Add the amount in sats you want to keysend.
     <br></br>
     Example: `bos send pubKeytoPay --avoid 03f10c03894188447dbf0a88691387972d93416cc6f2f6e0c0d3505b38f6db8eb5 --avoid bannedNodes --out 02c91d6aa51aa940608b497b6beebcb1aec05be3c47704b682b3889424679ca490 --avoid bannedNodes --max-fee 100 --message "Welcome to plebnet. RTFW plebnet.wiki"`
     <br></br> 
