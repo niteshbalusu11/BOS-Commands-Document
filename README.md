@@ -85,7 +85,7 @@ There are 6 different categories for accounting:
   - `payments`: any payments made on the LN including keysends.
 - Usage example: `bos accounting chain-fees`. Displays amounts spent on chain-fees in a table.
 - Flags:
-  - `--csv`: outputs the accounting results to a csv file: Example: `bos accounting chain-fees --csv > chainfees.csv`
+  - `csv`: outputs the accounting results to a csv file: Example: `bos accounting chain-fees --csv > chainfees.csv`
   - `disable-fiat`: Disables the usage of fiat in accounting, it defaults to sats as the unit of account.
   - `month`: select the month number to get accounting only for that specific month. `bos accounting forwards --month 8` returns results for August.
   - `rate-provider`: BOS provides two rate providers, coindesk and coingecko to provide accounting in fiat, this flag is defaulted to coindesk. To switch provider if the default provider is down or results take too long to pop-up use `bos accounting forwards --rate-provider coingecko`
@@ -148,7 +148,8 @@ Gives you an estimate of the chain-fees for various confirmation targets
 
 Gives you a chart and total onchain fees you paid in the last 60 days (default and can be changed)
 
-- Flags: - `days`: Produces a chart for the last N number of days specified.
+- Flags: 
+  - `days`: Produces a chart for the last N number of days specified.
   <br></br>
   Example: `bos chart-chain-fees --days 90`
   <br></br>
@@ -161,7 +162,9 @@ Gives you a chart and total routing fees you earned in the last 60 days (default
 - Options:
   - `pubkey`: Enter the pubkey of for the peer to get the routing fees earned via a specific peer.
   - `tag`: Enter a `bos tag` that returns results earned via peers in the tag
-- Flags: - `days`: Produces a chart for the last N number of days specified. - `count`: Give you a count of the number of forwards instead of sats
+- Flags: 
+  - `days`: Produces a chart for the last N number of days specified. 
+  - `count`: Give you a count of the number of forwards instead of sats
   <br></br>
   Example: `bos chart-chain-earned --days 90`
   <br></br>
@@ -246,7 +249,8 @@ Gives a chart of fees rates set per peer. Base fees is not included.
 
 Lets you find something that is stored in the data base, like a transaction, payment information, peer info, channel information etc.
 
-- Arguments: - Takes differnt kinds arguments:
+- Arguments: 
+  - Takes differnt kinds arguments:
   <br></br>
   Example: `bos find 703539x1305x0` OR `bos find Bitrefill` OR `bos find 02816caed43171d3c9854e3b0ab2cf0c42be086ff1bd4005acc2a5f7db70d83774`
   Find now also returns the size a channel is taking up on the db when you search with Alias or pubkey
@@ -439,7 +443,8 @@ This command is used to pay a payment request (Invoice)
   - `out`: Pay the payment request out from a specifc peer of yours so the first hop is through that peer. 
   - `in`: Enter a pubkey if you want the last hop to be through a specific in peer of the destination node.
   Note: If you create an invoice yourself, and you pay it using an out peer and an in peer of yours, it becomes a command that can you do rebalance with. 
-  - `message`: Enter a message of your choice to be attached to the payment request - `max-fee`: Max total routing fees you're willing to pay in order to pay the payment req. Default: 1337 
+  - `message`: Enter a message of your choice to be attached to the payment request 
+  - `max-fee`: Max total routing fees you're willing to pay in order to pay the payment req. Default: 1337 
   - `max-paths`: You can use multi path payments to pay the payment req via multiple paths, bos splits the payment and sends it out. Default: 1
   <br></br>
   Example: `bos pay invoiceToBePaid --avoid 03f10c03894188447dbf0a88691387972d93416cc6f2f6e0c0d3505b38f6db8eb5 --avoid bannedNodes --out 02c91d6aa51aa940608b497b6beebcb1aec05be3c47704b682b3889424679ca490 --avoid bannedNodes --max-fee 100`
