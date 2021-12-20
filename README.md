@@ -317,6 +317,7 @@ Sets rules for other peers to open channels to you. It takes formulas as the as 
 - Flags: 
   - `rule`: Select the rule you want to set, examples are `CAPACITY>5000000` to only allow inbound channels of more than 5M capacity. `CAPACITIES>100*M` to only allow an inbound channel if the peer has a total of 1BTC capacity from all public channels put together. Other examples include `PUBLIC_KEY`, `CHANNEL_AGES`, `FEE_RATES` etc. 
   - `reason` sends back a reason message when rejecting an inbound channel.
+  - `coop-close-address`: Listens to inbound channel open requests and intercepts them to add a cooperative closing address to send funds to when the channel to closed.
   <br></br>
   Example: `bos inbound-channel-rules --rule CAPACITY>=5000000 --message "Will only accept a minimum 5M inbound channel"`
   <br></br>
@@ -410,6 +411,7 @@ Lets you open a balanced channel with your peer, both peers involved need to hav
 
 - Flags: 
   - `recover`: Enter the address if funds were accidentally sent to it.
+  - `coop-close-address`: Adds a closing addresses to send funds to when the channel is cooperatively closed.
   <br></br>
   Simple running the command `bos open-balanced-channel` will ask you a series of questions to enter, like the `pubkey`, `total capacity` of the channel and the funding `fee rate`. It then key sends all that information to your peer to fund the other half for the channel. Your peer needs to run the same command to accept the request and review all information and agree to it, then the 1st peer or initiator will broadcast the transaction.
   <br></br>
