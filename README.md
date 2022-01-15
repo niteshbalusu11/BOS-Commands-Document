@@ -370,7 +370,7 @@ Opens a new channel to increase your outbound liquidity. If you don't specify `w
   - `with`: enter the pubkey to open channel with 
   - `dryrun`: avoids opening the channel but gives you a summary of the channel open
   <br></br>
-  Example: `bos increase-outbound-liquidity --with yourPeerPubkey --max-fee 2000 --dryrun`
+  Example: `bos increase-outbound-liquidity --with yourPeerPubkey --fee-rate 1 --dryrun`
   <br></br>
   <br></br>
 
