@@ -55,6 +55,7 @@ Most bos commands follow the following format.
 - [remove-peer](#remove-peer) - Close a channel with a peer
 - [send](#send) - Keysend payment to a node
 - [tags](#tags) - Create tags for categorizing nodes
+- [telegram](#telegram) - Connect bos to a telegram bot to receive updates from your node
 - [trade-secret](#trade-secret) - Trade between peers by encoding and decoding a secret
 - [utxos](#utxos) - Displays your UTXOs
 
@@ -264,8 +265,9 @@ Outputs a chart of forwards that took place from both inbound and outbound peers
 - Flags: 
   - `days`: Table view only shows forwards per peer for the last N number of days selected 
   - `complete`: Shows complete results in a non table format
+  - `sort`: Allows you to sort the table output by earnings or liquidity
   <br></br>
-  Example: `bos forwards --days 15`
+  Example: `bos forwards --days 15 --sort="earned_out"`
   <br></br>
   <br></br>
 
@@ -607,11 +609,33 @@ This commands allows you to create custom tags to categorize your peers. You can
   <br></br>
   <br></br>
 
+### telegram
+
+This command allows you to connect bos to a personal telegram bot. https://plebnet.wiki/wiki/Umbrel_-_Installing_BoS. Scroll down to the <b>Installing Telegram Bot</b> section and follow along to setup your bot.
+  - Flags:
+    - `budget`: Enter a budget amount that allows you to pay invoices from telegram upto the budget amount. <b>(Not a very good idea to use this flag for security reasons).</b>
+    - `connect`: Enter a connect code to connect to your bot.
+    - `ignore-forwards-below`: Enter an amount and forwards below the entered amount will be ignored in the notifications you receive.
+    - `reset-api-key`: Allows you to start the setup process from start and enter a new API key.
+    - `use-proxy`: Pass a flag to a json file that stores socksproxy (such as Tor) information for bos to communicate with telegram. Supports host, port, userId and password keys
+    <br></br>
+    Sample File `proxy-config.json` (you can use any name of your choice): 
+    ```
+    {
+      "host": "127.0.0.1",
+      "port": 9050
+    }
+    ```
+    <br></br>
+  Example: `bos telegram --connect 123456789 --use-proxy="/home/ubuntu/someFolder/someConfig.json"`
+  <br></br>
+  <br></br>
+
 ### trade-secret
 
 This commands allows you to trade between peers (p2p trading), for example invite to a telegram group, sell gift card codes and much more.
 <br></br>
-Example: Simply run `bos trade-secret`, it will ask you to create a trade or decode a trade. If you create a trade, you'll have to enter the pubkey of the peer you're trading with, a short description of your trade, the secret you're trading and the amount you want to charge for the trade. It will generate a code which you can share with the peer you're trading with. Your peer will then select the `Decode Trade` option and will be presented an invoice to pay and upon paying the invoice, secret is revealed.
+Example: Simply run `bos trade-secret`, it will ask you to create a trade or decode a trade, look at your open trades and serve stopped trades. Supports both open and closed trades. Run the command and you will be presented with options. An open trade is not entering the pubkey of the node your trading with and any node and purchase secrets from you. A closed trade involves entering a pubkey and the trade will be encoded with the peer's pubkey and only that specific node can decode the trade.
 <br></br>
 <br></br>
 
