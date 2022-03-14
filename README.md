@@ -21,7 +21,7 @@ Most bos commands follow the following format.
 ## Commands List
 
 - [accounting](#accounting) - Do accounting on your node
-- [advertise] (#advertise) - Send keysend advertisements to the network
+- [advertise](#advertise) - Send keysend advertisements to the network
 - [balance](#balance) - Shows offchain and onchain balances
 - [cert-validity-days](#cert-validity-days) - Shows your certificate validity
 - [chain-deposit](#chain-deposit) - Deposit funds on your on-chain wallet
@@ -43,6 +43,7 @@ Most bos commands follow the following format.
 - [inbound-liquidity](#inbound-liquidity) - Shows your inbound liquidity
 - [increase-inbound-liquidity](#increase-inbound-liquidity) - Increase inbound liquidity by looping out
 - [increase-outbound-liquidity](#increase-outbound-liquidity) - Increase outbound liquidity by opening channels
+- [limit-forwarding](#limit-forwarding) - Add restrictions to forwardind through your node
 - [nodes](#nodes) - Configure a saved node
 - [open](#open) - Open channels to nodes
 - [open-balanced-channel](#open-balanced-channel) - Open a balanced channel with a node
@@ -193,8 +194,10 @@ Gives you a chart and total routing fees you paid in the last 60 days (default a
 
 - Flags: 
   - `days`: Produces a chart for the last N number of days specified. 
+  - `in`: Takes a public key and charts fees paid coming into that node.
   - `most-fees`: Gives a table for fees paid per peer/network and amount forwarded per peer. 
   - `network`: Fees paid to the network who are not your peers, example are other hops in a rebalance or a payment you made. 
+  - `out`: Takes a public key and charts fees paid out through a node.
   - `peer`: Fees paid only to your peers excluding the others in the network 
   - `rebalances`: shows only fees paid for rebalances or payments made to yourself
   <br></br>
@@ -371,6 +374,7 @@ Helps increase your inbound liquidity by doing a loop out.
   - `amount`: amount you want to increase inbound liquidity by 
   - `max-fee`: max fees you're willing to pay in total for the swap 
   - `recover`: you can use the recovery key provided by bos to recover funds in an in-progress swap 
+  - `set-fee-rate`: Set a fee rate to the channel once the channel opens
   - `with`: specify the pubkey of the peer you want to increase inbound liquidity for
   <br></br>
   Example: `bos increase-inbound-liquidity --with yourPeerPubkey --max-fee 2000 --dryrun`
@@ -389,6 +393,21 @@ Opens a new channel to increase your outbound liquidity. If you don't specify `w
   - `dryrun`: avoids opening the channel but gives you a summary of the channel open
   <br></br>
   Example: `bos increase-outbound-liquidity --with yourPeerPubkey --fee-rate 1 --dryrun`
+  <br></br>
+  <br></br>
+
+### limit-forwarding
+
+Limits forwards through your node.
+
+- Flags:
+  - `disable-forwards`: Disable all forwards through your node.
+  - `max-hours-since-last-block`: Requires fresh blocks before forwarding resumes.
+  - `max-new-pending-per-hour`: Limit the number of pending HTLCs.
+  - `min-channel-confirmation`: Minimum channel confs required.
+  - `only-allow`: Only allow forwards from/to a pubkey.
+
+  Example: `bos limit-forwarding --disable-forwards`
   <br></br>
   <br></br>
 
@@ -415,6 +434,8 @@ Helps to open channels to the network, batch opening and funding from external/c
 - Flags: 
   - `amount`: capacity of the channel in Sats you want to open, can specify a separate amount if batch opening channels, default 5M sats if not specified 
   - `external-funding`: give you an address for you to sign from your external wallet along with the amount. **IF USING EXTERNAL WALLET, DO NOT BROADCAST THE TRANSACTION FROM THE EXTERNAL WALLET, BOS WILL DO IT FOR YOU** 
+  - `internal-fund-at-fee-rate`: Add an internal fund fee rate to open a channel to skip the interactive dialog that asks for you for internal/external funding.
+  - `opening-node`: Add an opening node for each pubkey to open channels on multiple saved nodes in the same transaction.
   - `set-fee-rate`: waits until the channel is open and attempts to set a forwarding fee rate, this process needs to run in the background until a channel is open. Have to run in background process manager like tmux, nohup or keep the ssh session open 
   - `type`: public/private, default: public
   - `coop-close-address`: Add an external wallet address like your cold storage wallet to send funds when a channel is coop closed.
@@ -599,7 +620,8 @@ This command is used to make a keysend payment using a node's pubkey.
   - `in`: Enter a pubkey if you want the last hop to be through a specific in peer of the destination node.
   Note: If you enter your own pubkey, you can keysend using an out peer and an in peer of yours, it becomes a command that can you do rebalance with. Useful for rebalances below 50k sats since `bos rebalance` does not support rebalances below 50k sats. 
   - `message`: Enter a message of your choice to be attached to the keysend 
-  - `max-fee`: Max total routing fees you're willing to pay in order to pay the payment req. Default: 1337 
+  - `max-fee`: Max total routing fees you're willing to pay in order to pay the payment req. Default: 1337
+  - `max-fee-rate`: Max fee rate allowed to be paid for the keysend in ppm. 
   - `message-omit-from-key`: BOS by default adds your pubkey to the keysend message, you can add this flag to avoid it. 
   - `amount`: Add the amount in sats you want to keysend.
   <br></br>
