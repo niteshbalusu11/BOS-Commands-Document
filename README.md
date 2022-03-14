@@ -21,6 +21,7 @@ Most bos commands follow the following format.
 ## Commands List
 
 - [accounting](#accounting) - Do accounting on your node
+- [advertise] (#advertise) - Send keysend advertisements to the network
 - [balance](#balance) - Shows offchain and onchain balances
 - [cert-validity-days](#cert-validity-days) - Shows your certificate validity
 - [chain-deposit](#chain-deposit) - Deposit funds on your on-chain wallet
@@ -92,6 +93,21 @@ There are 6 different categories for accounting:
   - `rate-provider`: BOS provides two rate providers, coindesk and coingecko to provide accounting in fiat, this flag is defaulted to coindesk. To switch provider if the default provider is down or results take too long to pop-up use `bos accounting forwards --rate-provider coingecko`
   - `year`: returns accounting results for a specifc year, it can be used in combination with month or separately to display results for the entire year. `bos accounting payments --month 10 --year 2021`
 - Flags can be used together, example: `bos accounting forwards --month 10 --disable-fiat`
+  <br></br>
+  <br></br>
+
+### advertise
+
+Send keysend advertisements to the network.
+
+- Flags:
+  - `budget`: Max budget amount you want to spend for advertising
+  - `dryrun`: Avoid sending advertisements and only calculate estimate
+  - `filter`: Pass an expression for nodes matching a certain condition
+  - `max-hops`: Maximum hops you want to target the advertisement. max-hops=0 is your peers only.
+  - `min-hops`: Minimum hops you want to target the advertisement. 
+
+  Example: `bos advertise --budget 3000 --max-hops 2`
   <br></br>
   <br></br>
 
