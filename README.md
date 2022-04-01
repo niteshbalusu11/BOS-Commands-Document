@@ -16,7 +16,7 @@ Most bos commands follow the following format.
 <br></br>
 ### **Updated until version `11.63.1`**
 <br></br>
-Written by [Nitesh](https://twitter.com/nitesh_btc).
+Written by <a href="https://twitter.com/nitesh_btc" target="_blank">Nitesh</a>.
 
 If this guide was of help and you want to share some ❤️, please feel free to send a ⚡ tip to the ⚡ address: 0x49f4f513b6752c95@ln.tips
 
