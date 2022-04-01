@@ -14,7 +14,6 @@ Most bos commands follow the following format.
 <br></br>
 ### **Always double check with `bos commandName -h` before running a command**
 <br></br>
-
 ### **Updated until version `11.63.1`**
 <br></br>
 Written by [Nitesh](https://twitter.com/nitesh_btc).
