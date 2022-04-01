@@ -11,17 +11,12 @@ Most bos commands follow the following format.
 2. `bos --version` or `bos -V`: Shows the current version of BOS
 3. `bos help CommandName` or `bos CommandName --help` or `bos CommandName -h`: Displays help section and usage of each command. Example usage `bos help peers`
 4. All bos commands can use a node flag that can be used to call any saved node you might have saved in the `~/.bos` directory. If you have multiple nodes you can remotely control your node from bos. Example: `bos peers --node=alice` where alice is the name of your saved node.
-
 <br></br>
-
 ### **Always double check with `bos commandName -h` before running a command**
-
 <br></br>
 
 ### **Updated until version `11.63.1`**
-
 <br></br>
-
 Written by [Nitesh](https://twitter.com/nitesh_btc).
 
 If this guide was of help and you want to share some ❤️, please feel free to send a ⚡ tip to the ⚡ address: 0x49f4f513b6752c95@ln.tips
@@ -29,10 +24,7 @@ If this guide was of help and you want to share some ❤️, please feel free to
 **LNURL:** LNURL1DP68GURN8GHJ7MRW9E6XJURN9UH8WETVDSKKKMN0WAHZ7MRWW4EXCUP0X9UR2VRYX4NRWCFNVVMKYCMXXCURQGXD649
 
 ![LNURL](./images/lnurl.jpg)
-
 <br></br>
-
-
 ## Commands List
 
 - [accounting](#accounting) - Do accounting on your node
