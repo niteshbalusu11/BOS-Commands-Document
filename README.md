@@ -18,6 +18,11 @@ Most bos commands follow the following format.
 
 <br></br>
 
+### **Updated until version `11.63.1`**
+
+<br></br>
+
+
 ## Commands List
 
 - [accounting](#accounting) - Do accounting on your node
@@ -44,6 +49,7 @@ Most bos commands follow the following format.
 - [increase-inbound-liquidity](#increase-inbound-liquidity) - Increase inbound liquidity by looping out
 - [increase-outbound-liquidity](#increase-outbound-liquidity) - Increase outbound liquidity by opening channels
 - [limit-forwarding](#limit-forwarding) - Add restrictions to forwardind through your node
+- [lnurl](#lnurl) - Lets you perform a list of LNUrl functions
 - [nodes](#nodes) - Configure a saved node
 - [open](#open) - Open channels to nodes
 - [open-balanced-channel](#open-balanced-channel) - Open a balanced channel with a node
@@ -411,6 +417,20 @@ Limits forwards through your node.
   <br></br>
   <br></br>
 
+### lnurl
+
+Perform a list of LNUrl functions
+
+- Arguments:
+  - `pay`: Pay to a Bolt-11 pay request (invoice) returned from a LNUrl.
+- Flags:
+  - `max-fee`: Maximum fees to be paid when paying the invoice, default: 1337.
+  - `url`: LNUrl that returns an invoice to pay to.
+  <br></br>
+  Example: `bos lnurl pay --url lightning:LNURL1DP68GURN8GHJ7MRWW4EXCTT5DAHKCCN00QHXGET8WFJK2UM0VEAX2UN09E3K7MF0W5LHZ0F5XAJXZVNYXQUNGDTRXGERYVFCXYERGCTXX33R2VR9XG6NXEP3VYUNWE3EVEJNSE3SVEJRGCNZV56KXVTXVYERQWR9X5ER2DEKVCUXYDWUW2V --max-fee 600`
+  <br></br>
+  <br></br>
+
 ### nodes
 
 Adds a saved node for you to control remotely
@@ -656,6 +676,7 @@ This command allows you to connect bos to a personal telegram bot. https://plebn
     - `ignore-forwards-below`: Enter an amount and forwards below the entered amount will be ignored in the notifications you receive.
     - `reset-api-key`: Allows you to start the setup process from start and enter a new API key.
     - `use-proxy`: Pass a flag to a json file that stores socksproxy (such as Tor) information for bos to communicate with telegram. Supports host, port, userId and password keys
+    - `use-small-units`: This flag switches units on telegram from BTC to Satoshis. Example: Default `0.00456123` will be displayed as `456,123.2003` which includes millisats.
     <br></br>
     Sample File `proxy-config.json` (you can use any name of your choice): 
     ```
@@ -674,6 +695,7 @@ This command allows you to connect bos to a personal telegram bot. https://plebn
 This commands allows you to trade between peers (p2p trading), for example invite to a telegram group, sell gift card codes and much more.
 <br></br>
 Example: Simply run `bos trade-secret`, it will ask you to create a trade or decode a trade, look at your open trades and serve stopped trades. Supports both open and closed trades. Run the command and you will be presented with options. An open trade is not entering the pubkey of the node your trading with and any node and purchase secrets from you. A closed trade involves entering a pubkey and the trade will be encoded with the peer's pubkey and only that specific node can decode the trade.
+Trade Secret now also supports p2p channel sales and all trades in fiat (USD).
 <br></br>
 <br></br>
 
