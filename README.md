@@ -22,6 +22,16 @@ Most bos commands follow the following format.
 
 <br></br>
 
+Written by [Nitesh](https://twitter.com/nitesh_btc).
+
+If this guide was of help and you want to share some ❤️, please feel free to send a ⚡ tip to the ⚡ address: 0x49f4f513b6752c95@ln.tips
+
+**LNURL:** LNURL1DP68GURN8GHJ7MRW9E6XJURN9UH8WETVDSKKKMN0WAHZ7MRWW4EXCUP0X9UR2VRYX4NRWCFNVVMKYCMXXCURQGXD649
+
+![LNURL](./images/lnurl.jpg)
+
+<br></br>
+
 
 ## Commands List
 
