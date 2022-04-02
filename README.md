@@ -347,7 +347,7 @@ Sets rules for other peers to open channels to you. It takes formulas as the as 
   - `reason` sends back a reason message when rejecting an inbound channel.
   - `coop-close-address`: Listens to inbound channel open requests and intercepts them to add a cooperative closing address to send funds to when the channel to closed.
   <br></br>
-  Example: `bos inbound-channel-rules --rule CAPACITY>=5000000 --message "Will only accept a minimum 5M inbound channel"`
+  Example: `bos inbound-channel-rules --rule CAPACITY>=5000000 --reason "Will only accept a minimum 5M inbound channel"`
   <br></br>
   <br></br>
 
