@@ -14,7 +14,7 @@ Most bos commands follow the following format.
 <br></br>
 ### **Always double check with `bos commandName -h` before running a command**
 <br></br>
-### **Updated until version `11.63.1`**
+### **Updated until version `12.7.1`**
 <br></br>
 Written by <a href="https://twitter.com/nitesh_btc" target="_blank">Nitesh</a>.
 
@@ -63,6 +63,7 @@ If this guide was of help and you want to share some ❤️, please feel free to
 - [reconnect](#reconnect) - Attempt to reconnect to disconnected peers
 - [remove-peer](#remove-peer) - Close a channel with a peer
 - [send](#send) - Keysend payment to a node
+- [swap](#swap) - Do a submarine swap with a node
 - [tags](#tags) - Create tags for categorizing nodes
 - [telegram](#telegram) - Connect bos to a telegram bot to receive updates from your node
 - [trade-secret](#trade-secret) - Trade between peers by encoding and decoding a secret
@@ -201,10 +202,10 @@ Gives you a chart and total routing fees you paid in the last 60 days (default a
 
 - Flags: 
   - `days`: Produces a chart for the last N number of days specified. 
-  - `in`: Takes a public key and charts fees paid coming into that node.
+  - `in`: Takes a public key/alias and charts fees paid coming into that node.
   - `most-fees`: Gives a table for fees paid per peer/network and amount forwarded per peer. 
   - `network`: Fees paid to the network who are not your peers, example are other hops in a rebalance or a payment you made. 
-  - `out`: Takes a public key and charts fees paid out through a node.
+  - `out`: Takes a public key/alias and charts fees paid out through a node.
   - `peer`: Fees paid only to your peers excluding the others in the network 
   - `rebalances`: shows only fees paid for rebalances or payments made to yourself
   <br></br>
@@ -423,12 +424,18 @@ Limits forwards through your node.
 Perform a list of LNUrl functions
 
 - Arguments:
-  - `pay`: Pay to a Bolt-11 pay request (invoice) returned from a LNUrl.
+  - `auth`: Authenticate to a website or an app that supports LNUrl login/sign up.
+  - `channel`: Request to open an inbound payment channel using LNUrl.
+  - `pay`: Pay to a Bolt-11 pay request (invoice) returned from a LNUrl or lightning address.
+  - `withdraw`: Withdraw from an lnurl withdraw server by passing a BOLT 11 invoice.
 - Flags:
+  - `avoid`: Avoid a node, channel or a `bos tag` while paying to a LNUrl pay request.
   - `max-fee`: Maximum fees to be paid when paying the invoice, default: 1337.
+  - `max-paths`: Maximum number of paths to use while paying to a LNUrl pay request.
+  - `out`: Specify an out peer to pay the lnurl pay request.
   - `url`: LNUrl that returns an invoice to pay to.
   <br></br>
-  Example: `bos lnurl pay --url lightning:LNURL1DP68GURN8GHJ7MRWW4EXCTT5DAHKCCN00QHXGET8WFJK2UM0VEAX2UN09E3K7MF0W5LHZ0F5XAJXZVNYXQUNGDTRXGERYVFCXYERGCTXX33R2VR9XG6NXEP3VYUNWE3EVEJNSE3SVEJRGCNZV56KXVTXVYERQWR9X5ER2DEKVCUXYDWUW2V --max-fee 600`
+  Example: `bos lnurl pay --url lightning:LNURL1DP68GURN8GHJ7MRWW4EXCTT5DAHKCCN00QHXGET8WFJK2UM0VEAX2UN09E3K7MF0W5LHZ0F5XAJXZVNYXQUNGDTRXGERYVFCXYERGCTXX33R2VR9XG6NXEP3VYUNWE3EVEJNSE3SVEJRGCNZV56KXVTXVYERQWR9X5ER2DEKVCUXYDWUW2V --max-fee 600 --avoid ban`
   <br></br>
   <br></br>
 
@@ -523,7 +530,7 @@ Lists your current peers that you have channels with in a table view.
   - `active`: Shows all your active peers (not offline) 
   - `complete`: Outputs a detailed view and does not use the table view. 
   - `fee-days`: If you enter the number of days, it shows the peers you have earned fees with over N number of days along with the fees earned in a separate column 
-  - `filter`: You can apply filter formulas to display results, filter takes the column names as the filters, they include AGE, INBOUND_LIQUIDITY, OUTBOUND_LIQUIDITY. You can use filters like this `OUTBOUND_LIQUIDITY>100000` and it will filter results accordingly. You can also use formula expressions like `m` for million and `k` for 100k, example `OUTBOUND_LIQUIDITY<1*m` - `idle-days`: If you enter the number of days, it shows the peers you had no activity over N number of days, it includes both routing and payments received - `inbound-below`: shows peers only below a certain inbound liquidity number - `outbound-below`: shows peers only below a certain outbound liquidity number - `omit`: enter a public key to omit that peer from the list - `private`: shows peers you have private channels with - `public`: shows peers you have public channels with - `sort`: you can sort by column name, example: `sort OUTBOUND_LIQUIDITY` - `tag`: show peers that you have added to your tag, more on this in another command called `bos tags` below.
+  - `filter`: You can apply filter formulas to display results, filter takes the column names as the filters, they include AGE, INBOUND_LIQUIDITY, OUTBOUND_LIQUIDITY. You can use filters like this `OUTBOUND_LIQUIDITY>100000` and it will filter results accordingly. You can also use formula expressions like `m` for million and `k` for 100k, example `OUTBOUND_LIQUIDITY<1*m` - `idle-days`: If you enter the number of days, it shows the peers you had no activity over N number of days, it includes both routing and payments received - `omit`: enter a public key to omit that peer from the list - `private`: shows peers you have private channels with - `public`: shows peers you have public channels with - `sort`: you can sort by column name, example: `sort OUTBOUND_LIQUIDITY` - `tag`: show peers that you have added to your tag, more on this in another command called `bos tags` below.
   <br></br>
   Example: `bos peers --active --filter OUTBOUND_LIQUIDITY>5*M --idle days 10`
   <br></br>
@@ -617,6 +624,7 @@ Closes a channel with a connected peer.
   - `active`: Makes sure the peer is online before closing the channel to ensure a coop close. 
   - `address`: if you want to send funds that you get back (your local balance) straight to an external wallet, enter the destination address. 
   - `fee-rate`: Set the fee rate for the closure. - `force`: Force close channel with a peer 
+  - `filter`: Add a filter formula to remove a peer matching the filter, example: `--filter "capacity<1*m"`
   - `inbound-below`: close channels with peers below a certain inbound liquidity level 
   - `outbound-below`: close channels with peers whose outbound is below a certain number 
   - `omit`: omit a peer you don't want to close a channel with if they fall under filter criteria of other flags such as `inbound-below` 
@@ -649,6 +657,14 @@ This command is used to make a keysend payment using a node's pubkey.
   Example: `bos send pubKeytoPay --avoid 03f10c03894188447dbf0a88691387972d93416cc6f2f6e0c0d3505b38f6db8eb5 --avoid bannedNodes --out 02c91d6aa51aa940608b497b6beebcb1aec05be3c47704b682b3889424679ca490 --avoid bannedNodes --max-fee 100 --message "Welcome to plebnet. RTFW plebnet.wiki"`
   <br></br>
   Here `bannedNodes` is an example `bos tag` name.
+  <br></br>
+  <br></br>
+
+### swap
+
+This command allows you to do a submarine swap with a peer. (Currently supports Testnet Only).
+
+If you run a testnet node, simply run the command, it is interactive to do a submarine swap with a peer.
   <br></br>
   <br></br>
 
