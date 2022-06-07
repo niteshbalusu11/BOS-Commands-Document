@@ -14,7 +14,7 @@ Most bos commands follow the following format.
 <br></br>
 ### **Always double check with `bos commandName -h` before running a command**
 <br></br>
-### **Updated until version `12.7.0`**
+### **Updated until version `12.11.0`**
 <br></br>
 Written by <a href="https://twitter.com/nitesh_btc" target="_blank">Nitesh</a>.
 
@@ -321,6 +321,8 @@ Stars a LND gateway server on a port that listens to WebUI Access. Connection co
 
 - Flags: 
   - `port`: Starts lisening on a specified port 
+  - `minutes`: Enter time in minutes the credentials are valid for. (Default: 10, Max: 60).
+  - `nospend`: Generates a nospend macaroon credentials.
   - `remote`: Enter a URL to generate a connection code for a remotegate way that expires at a specific time.
   <br></br>
   <br></br>
@@ -455,7 +457,8 @@ Adds a saved node for you to control remotely
 
 ### open
 
-Helps to open channels to the network, batch opening and funding from external/cold wallet is supported. **IF USING EXTERNAL WALLET, DO NOT BROADCAST THE TRANSACTION FROM THE EXTERNAL WALLET, BOS WILL DO IT FOR YOU**
+Helps to open channels to the network, batch opening and funding from external/cold wallet is supported. Open also supports p2tr and multisig funding for external funding of channels.
+**IF USING EXTERNAL WALLET, DO NOT BROADCAST THE TRANSACTION FROM THE EXTERNAL WALLET, BOS WILL DO IT FOR YOU**
 
 - Arguments:
   - `pubkey`: public key of the node you want to open a channel to. Can enter multiple with a space in between.
@@ -642,7 +645,7 @@ Closes a channel with a connected peer.
 This command is used to make a keysend payment using a node's pubkey.
 
 - Arguments:
-  - `pubkey`: Enter the pubkey of the node you want to make a payment to.
+  - `pubkey or lnurl`: Enter the pubkey of the node you want to make a payment to You can also enter an lnurl or lightning address to pay to.
 - Flags: 
   - `avoid`: When paying via keysend you can set to avoid a node by entering a public key or a specific channel by entering a channel ID. You can also avoid multiple nodes/channels by using the avoid flag multiple times. You can also use a `bos tag` (more on this in a separate command below) to avoid a group of nodes or channels by grouping them together. 
   - `out`: Keysend out from a specifc peer of yours so the first hop is through that peer. 
@@ -655,6 +658,8 @@ This command is used to make a keysend payment using a node's pubkey.
   - `amount`: Add the amount in sats you want to keysend.
   <br></br>
   Example: `bos send pubKeytoPay --avoid 03f10c03894188447dbf0a88691387972d93416cc6f2f6e0c0d3505b38f6db8eb5 --avoid bannedNodes --out 02c91d6aa51aa940608b497b6beebcb1aec05be3c47704b682b3889424679ca490 --avoid bannedNodes --max-fee 100 --message "Welcome to plebnet. RTFW plebnet.wiki"`
+  <br></br>
+  `bos send nitesh_btc@lntxbot.com --amount 500"`
   <br></br>
   Here `bannedNodes` is an example `bos tag` name.
   <br></br>
