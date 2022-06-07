@@ -203,14 +203,17 @@ Gives you a chart and total routing fees you paid in the last 60 days (default a
 - Flags: 
   - `days`: Produces a chart for the last N number of days specified. 
   - `in`: Takes a public key/alias and charts fees paid coming into that node.
-  - `most-fees`: Gives a table for fees paid per peer/network and amount forwarded per peer. 
+  - `most-fees`: Gives a table for fees paid per peer/network. 
+  - `most-forwarded`: Gives a table for amount forwarded per peer.  
   - `network`: Fees paid to the network who are not your peers, example are other hops in a rebalance or a payment you made. 
+  - `node`: Gives a table of the fees for the node specified.
   - `out`: Takes a public key/alias and charts fees paid out through a node.
-  - `peer`: Fees paid only to your peers excluding the others in the network 
+  - `peers`: Fees paid only to your peers excluding the others in the network 
   - `rebalances`: shows only fees paid for rebalances or payments made to yourself
   <br></br>
   Example: `bos chart-fees-paid --days 15 --rebalances`
   <br></br>
+  Example: `bos chart-fees-paid --most-forwarded --days 30`
   <br></br>
 
 ### chart-payments-received
