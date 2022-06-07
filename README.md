@@ -2,6 +2,9 @@
 
 **This document helps with BOS Commands:**
 
+### **Updated until version `12.11.0`**
+<br></br>
+
 Most bos commands follow the following format.
 `bos CommandName Argument --Flag` or `bos CommandName --Flag` or `bos CommandName Option --Flag`if a command does not have an argument.
 **Arguments are always mandatory, options and flags are optional.**
@@ -13,8 +16,6 @@ Most bos commands follow the following format.
 4. All bos commands can use a node flag that can be used to call any saved node you might have saved in the `~/.bos` directory. If you have multiple nodes you can remotely control your node from bos. Example: `bos peers --node=alice` where alice is the name of your saved node.
 <br></br>
 ### **Always double check with `bos commandName -h` before running a command**
-<br></br>
-### **Updated until version `12.11.0`**
 <br></br>
 Written by <a href="https://twitter.com/nitesh_btc" target="_blank">Nitesh</a>.
 
