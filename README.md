@@ -847,7 +847,7 @@ touch config.json
 
 # add the config setting
 
-{“default_saved_node”:”anySavedNodeName”}
+{"default_saved_node":"anySavedNodeName"}
 
 # save and exit
 
