@@ -796,10 +796,11 @@ If you accidentally sent on-chain funds to your public key instead of your walle
   - `vout`: Transaction output index of funds sent to p2pk
     <br></br>
     Example: `bos recover-p2pk 59qadc75d655cca5fa2qwef5ab87cd39fzxc99f563b9f71e0a5e245680fc6fd5 0 `
+    <br></br>
 
 
 
-### If the latest Umbrel version broke bos, here’s how to fix it. 
+## If the latest Umbrel version broke bos, here’s how to fix it. 
 ```
 
 ls ~/.bos
