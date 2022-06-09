@@ -803,56 +803,55 @@ If you accidentally sent on-chain funds to your public key instead of your walle
 ```
 
 ls ~/.bos
-
-# if it says throws an error saying: No such file or directory
-
+```
+If it throws an error saying: No such file or directory
+```
 mkdir ~/.bos && cd ~/.bos
-
-# If the directory exists:
-
+```
+If the directory exists:
+```
 cd ~/.bos
-
-# make a saved node directory, go into it and create a credentials file
-
+```
+make a saved node directory, go into it and create a credentials file
+```
 mkdir anySavedNodeName && cd anySavedNodeName && nano credentials.json
-
-# Edit the JSON file
-
+```
+Edit the JSON file
+```
 {
 "cert_path":"/home/umbrel/umbrel/app-data/lightning/data/lnd/tls.cert",
 "macaroon_path":"/home/umbrel/umbrel/app-data/lightning/data/lnd/data/chain/bitcoin/mainnet/admin.macaroon",
 "socket":"umbrel.local:10009"
 }
-
+```
 If umbrel.local:10009 doesn't work, try localhost:10009
 
-# Save the file and exit
-
+Save the file and exit
+```
 ctrl + x 
 y
-
-# at this point bos commands should work like this
-
+```
+At this point bos commands should work like this
+```
 bos balance --node anySavedNodeName
+```
+Now make the saved node as default saved node
 
-# now make the saved node as default saved node
-
-# go back to bos dir
-
+Go back to bos dir
+```
 cd ~/.bos
-
-# make a config file 
-
+```
+Make a config file 
+```
 nano config.json
-
-# add the config setting
-
+```
+Add the config setting
+```
 {"default_saved_node":"anySavedNodeName"}
+```
+Save and exit
 
-# save and exit
-
-# now run bos commands normally
-
+Now run bos commands normally
+```
 bos balance
-
 ```
