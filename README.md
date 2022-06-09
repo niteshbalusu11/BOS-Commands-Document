@@ -814,7 +814,7 @@ cd ~/.bos
 
 # make a saved node directory, go into it and create a credentials file
 
-mkdir anySavedNodeName && cd anySavedNodeName && touch credentials.json
+mkdir anySavedNodeName && cd anySavedNodeName && nano credentials.json
 
 # Edit the JSON file
 
@@ -843,7 +843,7 @@ cd ~/.bos
 
 # make a config file 
 
-touch config.json
+nano config.json
 
 # add the config setting
 
