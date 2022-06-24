@@ -720,7 +720,7 @@ This command allows you to connect bos to a personal telegram bot. https://plebn
 
 This commands allows you to trade between peers (p2p trading), for example invite to a telegram group, sell gift card codes and much more.
 <br></br>
-Example: Simply run `bos trade-secret`, it will ask you to create a trade or decode a trade, look at your open trades and serve stopped trades. Supports both open and closed trades. Run the command and you will be presented with options. An open trade is not entering the pubkey of the node your trading with and any node and purchase secrets from you. A closed trade involves entering a pubkey and the trade will be encoded with the peer's pubkey and only that specific node can decode the trade.
+Example: Simply run `bos trade-secret`, it will ask you to create a trade or decode a trade, look at your open trades and serve stopped trades. Supports both open and closed trades. Run the command and you will be presented with options. An open trade is where you will not be entering the pubkey of the node your trading with and any node can purchase secrets from you by connecting with you and exchanging information of LN p2p messaging. A closed trade involves entering a pubkey and the trade will be encoded with the peer's pubkey and only that specific node can decode the trade.
 Trade Secret now also supports p2p channel sales and all trades in fiat (USD).
 <br></br>
 <br></br>
