@@ -155,9 +155,9 @@ Generates address and QR code to deposit funds to your onchain wallet.
 - Options:
   - `amount`: generate an address to deposit a specific amount. `bos chain-deposit 100000`.
 - Flags:
-  - `format`: set the address format, supported options are np2wpkh, p2wpkh, p2tr, 
+  - `format`: set the address format, supported options are np2wpkh, p2wpkh (default), p2tr, 
     <br></br>
-    Example: `bos chain-deposit` or `bos chain-deposit 100000`
+    Example: `bos chain-deposit` or `bos chain-deposit 100000 --format p2tr`
     <br></br>
     <br></br>
 
