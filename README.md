@@ -2,7 +2,7 @@
 
 **This document helps with BOS Commands:**
 
-### **Updated until version `12.11.0`**
+### **Updated until version `12.13.2`**
 <br></br>
 
 Most bos commands follow the following format.
@@ -154,6 +154,8 @@ Generates address and QR code to deposit funds to your onchain wallet.
 
 - Options:
   - `amount`: generate an address to deposit a specific amount. `bos chain-deposit 100000`.
+- Flags:
+  - `format`: set the address format, supported options are np2wpkh, p2wpkh, p2tr, 
     <br></br>
     Example: `bos chain-deposit` or `bos chain-deposit 100000`
     <br></br>
