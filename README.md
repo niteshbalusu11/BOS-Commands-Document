@@ -17,7 +17,6 @@ Most bos commands follow the following format.
 <br></br>
 ### **Always double check with `bos commandName -h` before running a command**
 <br></br>
-Written by <a href="https://twitter.com/nitesh_btc" target="_blank">Nitesh</a>.
 
 If this guide was of help and you want to share some ❤️, please feel free to send a ⚡ tip to the ⚡ address: 0x49f4f513b6752c95@ln.tips
 
@@ -506,7 +505,8 @@ Lets you open a balanced channel with your peer, both peers involved need to hav
 
 Lets you open balanced channels with multiple peers. This is an interactive command where each participant in the group runs the command and one participant initiates. Here's a video of how it works:
 
-![Group Channel Open](./images/open-group-channel.mov)
+https://user-images.githubusercontent.com/84944042/184359226-df90d4fb-e644-4667-ab0a-5e7fe0693f26.mov
+
 
 ### outbound-liquidity
 
