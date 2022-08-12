@@ -506,6 +506,7 @@ Lets you open a balanced channel with your peer, both peers involved need to hav
 Lets you open balanced channels with multiple peers. This is an interactive command where each participant in the group runs the command and one participant initiates. Here's a video of how it works:
 
 https://user-images.githubusercontent.com/84944042/184359226-df90d4fb-e644-4667-ab0a-5e7fe0693f26.mov
+
   <br></br>
   <br></br>
 
