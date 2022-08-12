@@ -2,7 +2,7 @@
 
 **This document helps with BOS Commands:**
 
-### **Updated until version `12.13.2`**
+### **Updated until version `12.20.1`**
 <br></br>
 
 Most bos commands follow the following format.
@@ -55,6 +55,7 @@ If this guide was of help and you want to share some ❤️, please feel free to
 - [nodes](#nodes) - Configure a saved node
 - [open](#open) - Open channels to nodes
 - [open-balanced-channel](#open-balanced-channel) - Open a balanced channel with a node
+- [open-group-channel](#open-group-channel) - Open balanced channels with multiple peers
 - [outbound-liquidity](#outbound-liquidity) - Shows your outbound liquidity
 - [pay](#pay) - Pay a payment request
 - [peers](#peers) - Displays your peers
@@ -179,8 +180,11 @@ Gives you a chart and total onchain fees you paid in the last 60 days (default a
 
 - Flags: 
   - `days`: Produces a chart for the last N number of days specified.
+  - `end`: End date for the chart.
+  - `start`: Start date for the chart.
   <br></br>
   Example: `bos chart-chain-fees --days 90`
+  Example: `bos chart-chain-fees --start 2022-06-01 --end 2022-06-30`
   <br></br>
   <br></br>
 
@@ -225,8 +229,11 @@ Gives you a chart of all payments received on your node like keysends and settle
 
 - Flags: 
   - `days`: Produces a chart for the last N number of days specified.
+  - `end`: End date for the chart.
+  - `start`: Start date for the chart.
   <br></br>
-  Example: `bos chart-payments-received --days 15 --rebalances`
+  Example: `bos chart-payments-received --days 15`
+  Example: `bos chart-payments-received --start 2022-06-01 --end 2022-06-30`
   <br></br>
   <br></br>
 
@@ -494,6 +501,12 @@ Lets you open a balanced channel with your peer, both peers involved need to hav
   ![Balanced Channel Open](./images/balancedopen.jpg)
   <br></br>
   <br></br>
+
+### open-group-channel
+
+Lets you open balanced channels with multiple peers. This is an interactive command where each participant in the group runs the command and one participant initiates. Here's a video of how it works:
+
+![Group Channel Open](./images/open-group-channel.mov)
 
 ### outbound-liquidity
 
