@@ -2,7 +2,7 @@
 
 **This document helps with BOS Commands:**
 
-### **Updated until version `12.20.1`**
+### **Updated until version `12.30.0`**
 <br></br>
 
 Most bos commands follow the following format.
@@ -195,8 +195,10 @@ Gives you a chart and total routing fees you earned in the last 60 days (default
   - `pubkey`: Enter the pubkey of for the peer to get the routing fees earned via a specific peer.
   - `tag`: Enter a `bos tag` that returns results earned via peers in the tag
 - Flags: 
-  - `days`: Produces a chart for the last N number of days specified. 
   - `count`: Give you a count of the number of forwards instead of sats
+  - `days`: Produces a chart for the last N number of days specified. 
+  - `end`: End date for the chart.
+  - `start`: Start date for the chart.
   <br></br>
   Example: `bos chart-chain-earned --days 90`
   <br></br>
@@ -208,6 +210,7 @@ Gives you a chart and total routing fees you paid in the last 60 days (default a
 
 - Flags: 
   - `days`: Produces a chart for the last N number of days specified. 
+  - `end`: End date for the chart
   - `in`: Takes a public key/alias and charts fees paid coming into that node.
   - `most-fees`: Gives a table for fees paid per peer/network. 
   - `most-forwarded`: Gives a table for amount forwarded per peer.  
@@ -216,6 +219,7 @@ Gives you a chart and total routing fees you paid in the last 60 days (default a
   - `out`: Takes a public key/alias and charts fees paid out through a node.
   - `peers`: Fees paid only to your peers excluding the others in the network 
   - `rebalances`: shows only fees paid for rebalances or payments made to yourself
+  - `start`: Start date for the chart
   <br></br>
   Example: `bos chart-fees-paid --days 15 --rebalances`
   <br></br>
@@ -227,8 +231,10 @@ Gives you a chart and total routing fees you paid in the last 60 days (default a
 Gives you a chart of all payments received on your node like keysends and settled invoices.
 
 - Flags: 
-  - `days`: Produces a chart for the last N number of days specified.
+  - `count`: Show count of settled instead of amount received
+  - `days`: Produces a chart for the last N number of days specified
   - `end`: End date for the chart.
+  - `for`:  Only consider payments including a specific query
   - `start`: Start date for the chart.
   <br></br>
   Example: `bos chart-payments-received --days 15`
@@ -469,18 +475,19 @@ Adds a saved node for you to control remotely
 
 ### open
 
-Helps to open channels to the network, batch opening and funding from external/cold wallet is supported. Open also supports p2tr and multisig funding for external funding of channels.
+Helps to open channels to the network, batch opening and funding from external/cold wallet is supported. Open also supports p2tr and multisig funding for external funding of channels. Open also supports opening trusted funding channels.
 **IF USING EXTERNAL WALLET, DO NOT BROADCAST THE TRANSACTION FROM THE EXTERNAL WALLET, BOS WILL DO IT FOR YOU**
 
 - Arguments:
   - `pubkey`: public key of the node you want to open a channel to. Can enter multiple with a space in between.
 - Flags: 
   - `amount`: capacity of the channel in Sats you want to open, can specify a separate amount if batch opening channels, default 5M sats if not specified 
+  - `avoid-broadcast`: Avoid broadcast of funding transaction
   - `external-funding`: give you an address for you to sign from your external wallet along with the amount. **IF USING EXTERNAL WALLET, DO NOT BROADCAST THE TRANSACTION FROM THE EXTERNAL WALLET, BOS WILL DO IT FOR YOU** 
   - `internal-fund-at-fee-rate`: Add an internal fund fee rate to open a channel to skip the interactive dialog that asks for you for internal/external funding.
   - `opening-node`: Add an opening node for each pubkey to open channels on multiple saved nodes in the same transaction.
   - `set-fee-rate`: waits until the channel is open and attempts to set a forwarding fee rate, this process needs to run in the background until a channel is open. Have to run in background process manager like tmux, nohup or keep the ssh session open 
-  - `type`: public/private, default: public
+  - `type`: public/private/public-trusted/private-trusted, default: public
   - `coop-close-address`: Add an external wallet address like your cold storage wallet to send funds when a channel is coop closed.
   <br></br>
   Example: `bos open pubkey1 --amount 1000000 pubkey2 --amount 3000000 pubkey3 --amount 4000000`. Once you enter the command and hit enter, it will ask the onchain transaction fee you want to set and also if you want to use your internal LND wallet for funding the transaction.
