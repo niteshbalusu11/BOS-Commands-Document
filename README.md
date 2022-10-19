@@ -2,7 +2,7 @@
 
 **This document helps with BOS Commands:**
 
-### **Updated until version `12.30.0`**
+### **Updated until version `13.1.5`**
 <br></br>
 
 Most bos commands follow the following format.
@@ -364,7 +364,7 @@ Returns a list of connections and other public information of a node.
 Sets rules for other peers to open channels to you. It takes formulas as the as the rule.
 
 - Flags: 
-  - `rule`: Select the rule you want to set, examples are `CAPACITY>5000000` to only allow inbound channels of more than 5M capacity. `CAPACITIES>100*M` to only allow an inbound channel if the peer has a total of 1BTC capacity from all public channels put together. Other examples include `PUBLIC_KEY`, `CHANNEL_AGES`, `FEE_RATES` etc. 
+  - `rule`: Select the rule you want to set, examples are `CAPACITY>5000000` to only allow inbound channels of more than 5M capacity. `CAPACITIES>100*M` to only allow an inbound channel if the peer has a total of 1BTC capacity from all public channels put together. Other examples include `CHANNEL_AGES`, `FEE_RATES`, `LOCAL_BALANCE`, `PUBLIC_KEY`, `PRIVATE` etc. 
   - `reason` sends back a reason message when rejecting an inbound channel.
   - `coop-close-address`: Listens to inbound channel open requests and intercepts them to add a cooperative closing address to send funds to when the channel to closed.
   <br></br>
@@ -489,6 +489,7 @@ Helps to open channels to the network, batch opening and funding from external/c
   - `set-fee-rate`: waits until the channel is open and attempts to set a forwarding fee rate, this process needs to run in the background until a channel is open. Have to run in background process manager like tmux, nohup or keep the ssh session open 
   - `type`: public/private/public-trusted/private-trusted, default: public
   - `coop-close-address`: Add an external wallet address like your cold storage wallet to send funds when a channel is coop closed.
+  - `set-fee-rate`: Set a fee rate on opening a channel when supported.
   <br></br>
   Example: `bos open pubkey1 --amount 1000000 pubkey2 --amount 3000000 pubkey3 --amount 4000000`. Once you enter the command and hit enter, it will ask the onchain transaction fee you want to set and also if you want to use your internal LND wallet for funding the transaction.
   <br></br>
@@ -562,6 +563,7 @@ Lists your current peers that you have channels with in a table view.
   - `complete`: Outputs a detailed view and does not use the table view. 
   - `fee-days`: If you enter the number of days, it shows the peers you have earned fees with over N number of days along with the fees earned in a separate column 
   - `filter`: You can apply filter formulas to display results, filter takes the column names as the filters, they include AGE, INBOUND_LIQUIDITY, OUTBOUND_LIQUIDITY. You can use filters like this `OUTBOUND_LIQUIDITY>100000` and it will filter results accordingly. You can also use formula expressions like `m` for million and `k` for 100k, example `OUTBOUND_LIQUIDITY<1*m` - `idle-days`: If you enter the number of days, it shows the peers you had no activity over N number of days, it includes both routing and payments received - `omit`: enter a public key to omit that peer from the list - `private`: shows peers you have private channels with - `public`: shows peers you have public channels with - `sort`: you can sort by column name, example: `sort OUTBOUND_LIQUIDITY` - `tag`: show peers that you have added to your tag, more on this in another command called `bos tags` below.
+  `filter` variable support `AGE`, `BLOCKS_SINCE_LAST_CHANNEL`, `CAPACITY`, `DISK_USAGE_MB`, `INBOUND_LIQUIDITY`, `OUTBOUND_LIQUIDITY`.
   <br></br>
   Example: `bos peers --active --filter OUTBOUND_LIQUIDITY>5*M --idle days 10`
   <br></br>
