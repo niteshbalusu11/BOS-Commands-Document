@@ -2,7 +2,7 @@
 
 **This document helps with BOS Commands:**
 
-### **Updated until version `13.1.5`**
+### **Updated until version `13.10.1`**
 <br></br>
 
 Most bos commands follow the following format.
@@ -38,6 +38,7 @@ If this guide was of help and you want to share some ❤️, please feel free to
 - [chart-payments-received](#chart-payments-received) - Payments you received
 - [clean-failed-payments](#clean-failed-payments) - Clean failed payments like probes (works with lnd 0.14.0+ only)
 - [closed](#closed) - Lists your closed channels
+- [create-channel-group](#create-channel-group) - Coordinate balanced channels group
 - [credentials](#credentials) - Generates credentials for your node
 - [fees](#fees) - Set fees to your channels
 - [find](#find) - Query a string
@@ -49,6 +50,7 @@ If this guide was of help and you want to share some ❤️, please feel free to
 - [inbound-liquidity](#inbound-liquidity) - Shows your inbound liquidity
 - [increase-inbound-liquidity](#increase-inbound-liquidity) - Increase inbound liquidity by looping out
 - [increase-outbound-liquidity](#increase-outbound-liquidity) - Increase outbound liquidity by opening channels
+- [invoice](#invoice) - Create an invoice and get a BOLT 11 payment request
 - [limit-forwarding](#limit-forwarding) - Add restrictions to forwardind through your node
 - [lnurl](#lnurl) - Lets you perform a list of LNUrl functions
 - [nodes](#nodes) - Configure a saved node
@@ -98,11 +100,12 @@ There are 6 different categories for accounting:
 - Usage example: `bos accounting chain-fees`. Displays amounts spent on chain-fees in a table.
 - Flags:
   - `csv`: outputs the accounting results to a csv file: Example: `bos accounting chain-fees --csv > chainfees.csv`
+  - `date`: Pick a date with in the month.
   - `disable-fiat`: Disables the usage of fiat in accounting, it defaults to sats as the unit of account.
   - `month`: select the month number to get accounting only for that specific month. `bos accounting forwards --month 8` returns results for August.
   - `rate-provider`: BOS provides two rate providers, coindesk and coingecko to provide accounting in fiat, this flag is defaulted to coindesk. To switch provider if the default provider is down or results take too long to pop-up use `bos accounting forwards --rate-provider coingecko`
   - `year`: returns accounting results for a specifc year, it can be used in combination with month or separately to display results for the entire year. `bos accounting payments --month 10 --year 2021`
-- Flags can be used together, example: `bos accounting forwards --month 10 --disable-fiat`
+- Flags can be used together, example: `bos accounting forwards --month 10 --day 15 --disable-fiat`
   <br></br>
   <br></br>
 
@@ -265,6 +268,20 @@ Returns a list of confirmed channel closures.
   <br></br>
   <br></br>
 
+
+### create-channel-group
+Coordinate balanced channels group.
+
+- Flags:
+  `allow`: Only allow a list of certain public keys to join a group and also specify the order of the group.
+  `capacity`: Specify the total channel capacity of all the channels in the group.
+  `fee-rate`: Specify the fee rate of the group open.
+  `size`: Specify the size of the group.
+  <br></br>
+  Example: `bos create-channel-group --allow pubkey1 --allow pubkey2 --size 3 --capacity 10000000`
+  <br></br>
+  <br></br>
+
 ### credentials
 
 Outputs credentials to access your node. Needs to be used in combination with `bos nodes --add`. Running the command without any flag will ask you a question to enter a pubkey to transfer the credentials in an encrypted way.
@@ -421,6 +438,26 @@ Opens a new channel to increase your outbound liquidity. If you don't specify `w
   - `dryrun`: avoids opening the channel but gives you a summary of the channel open
   <br></br>
   Example: `bos increase-outbound-liquidity --with yourPeerPubkey --fee-rate 1 --dryrun`
+  <br></br>
+  <br></br>
+
+
+### invoice
+Create an invoice and get a BOLT 11 payment request 
+
+- Arguments:
+  - `amount`: Amount in sats/fiat (USD/EUR)
+
+- Flags:
+  `for`: Add a description for the invoice.
+  `include-hints`: Include private channel hints in the invoice.
+  `rate-provider`: Set a rate provider for fiat rates. coindesk (default), coinbase or coingecko.
+  `select-hints`: Select specific private channel routing hints to add to the invoice.
+  `virtual`: Adds a fake pubkey as the destination and your real node intercepts the payment.
+  `virtual-fee-rate`: Add the fee rate you want to charge for the final hop to the fake pubkey.
+  <br></br>
+  Example: `bos invoice 10*usd --description "For 6 pack beer"`
+  Example: `bos invoice 50000 --virtual --virtual-fee-rate 100`
   <br></br>
   <br></br>
 
@@ -611,6 +648,7 @@ Rebalances your channels by moving liquidity between your peers. A rebalance mov
   - `out`: this flag can take the pubkey or Alias of your peer, its the first hop where you want the funds to leave from. 
   - `in`: this flag can take the pubkey or Alias of your peer, its the last hop where the funds arrive into. 
   - `avoid`: this can take pubkey, channel ID or a `bos tag` (more on this in a separate command below) where you can group multiple pubkeys to avoid while doing a rebalance. Avoid can take filters as well, explained in example below. 
+  - `avoid-high-fee-routes`: Avoids routes above the specified fee rate.
   - `in-target-outbound`: the amount of outbound you want to target for a peer's channel where the funds are coming into. 
   - `out-target-inbound`: the amount of inbound you want to target for a peer's channel through which the funds are going out of. 
   - `max-fee-rate`: the maximum fee rate in ppm that you want to pay for your rebalance 
