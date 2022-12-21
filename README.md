@@ -105,7 +105,7 @@ There are 6 different categories for accounting:
   - `month`: select the month number to get accounting only for that specific month. `bos accounting forwards --month 8` returns results for August.
   - `rate-provider`: BOS provides two rate providers, coindesk and coingecko to provide accounting in fiat, this flag is defaulted to coindesk. To switch provider if the default provider is down or results take too long to pop-up use `bos accounting forwards --rate-provider coingecko`
   - `year`: returns accounting results for a specifc year, it can be used in combination with month or separately to display results for the entire year. `bos accounting payments --month 10 --year 2021`
-- Flags can be used together, example: `bos accounting forwards --month 10 --day 15 --disable-fiat`
+- Flags can be used together, example: `bos accounting forwards --month 10 --date 15 --disable-fiat`
   <br></br>
   <br></br>
 
