@@ -2,7 +2,7 @@
 
 **This document helps with BOS Commands:**
 
-### **Updated until version `13.10.1`**
+### **Updated until version `13.25.2`**
 <br></br>
 
 Most bos commands follow the following format.
@@ -105,7 +105,7 @@ There are 6 different categories for accounting:
   - `month`: select the month number to get accounting only for that specific month. `bos accounting forwards --month 8` returns results for August.
   - `rate-provider`: BOS provides two rate providers, coindesk and coingecko to provide accounting in fiat, this flag is defaulted to coindesk. To switch provider if the default provider is down or results take too long to pop-up use `bos accounting forwards --rate-provider coingecko`
   - `year`: returns accounting results for a specifc year, it can be used in combination with month or separately to display results for the entire year. `bos accounting payments --month 10 --year 2021`
-- Flags can be used together, example: `bos accounting forwards --month 10 --date 15 --disable-fiat`
+- Flags can be used together, example: `bos accounting forwards --month 10 --day 15 --disable-fiat`
   <br></br>
   <br></br>
 
@@ -383,7 +383,7 @@ Sets rules for other peers to open channels to you. It takes formulas as the as 
 - Flags: 
   - `rule`: Select the rule you want to set, examples are `CAPACITY>5000000` to only allow inbound channels of more than 5M capacity. `CAPACITIES>100*M` to only allow an inbound channel if the peer has a total of 1BTC capacity from all public channels put together. Other examples include `CHANNEL_AGES`, `FEE_RATES`, `LOCAL_BALANCE`, `PUBLIC_KEY`, `PRIVATE` etc. 
   - `reason` sends back a reason message when rejecting an inbound channel.
-  - `coop-close-address`: Listens to inbound channel open requests and intercepts them to add a cooperative closing address to send funds to when the channel to closed.
+  - `coop-close-address`: Listens to inbound channel open requests and intercepts them to add a cooperative closing address to send funds to when the channel to closed. Can be repeatable and it will cycle through the addresses.
   <br></br>
   Example: `bos inbound-channel-rules --rule CAPACITY>=5000000 --reason "Will only accept a minimum 5M inbound channel"`
   <br></br>
@@ -450,6 +450,7 @@ Create an invoice and get a BOLT 11 payment request
 
 - Flags:
   `for`: Add a description for the invoice.
+  `hours`: Number of hours the invoice expires.
   `include-hints`: Include private channel hints in the invoice.
   `rate-provider`: Set a rate provider for fiat rates. coindesk (default), coinbase or coingecko.
   `select-hints`: Select specific private channel routing hints to add to the invoice.
@@ -578,6 +579,7 @@ This command is used to pay a payment request (Invoice)
   - `request`: Enter the invoice you want to pay
 - Flags: 
   - `avoid`: When paying the payment request you can set to avoid a node by entering a public key or a specific channel by entering a channel ID. You can also avoid multiple nodes/channels by using the avoid flag multiple times. You can also use a `bos tag` (more on this in a separate command below) to avoid a group of nodes or channels by grouping them together. 
+  - `avoid-high-fee-routes`: Ignore trying paths with fees greater than specified fees.
   - `out`: Pay the payment request out from a specifc peer of yours so the first hop is through that peer. 
   - `in`: Enter a pubkey if you want the last hop to be through a specific in peer of the destination node.
   Note: If you create an invoice yourself, and you pay it using an out peer and an in peer of yours, it becomes a command that can you do rebalance with. 
@@ -630,6 +632,8 @@ Simulate a payment for a certain amount and it will be simulated through the con
   - `amount`: Amount you want to probe for
 - Flags: 
   - `avoid`: When probing you can set to avoid a node by entering a public key or a specific channel by entering a channel ID. You can also avoid multiple nodes/channels by using the avoid flag multiple times. You can also use a `bos tag` (more on this in a separate command below) to avoid a group of nodes or channels by grouping them together. 
+  - `avoid-high-fee-routes`: Ignore trying paths with fees greater than specified fees.
+  - `max-fee`: the maximum total fees in sats that you want to use for probing. 
   - `out`: Probe out from a specifc peer of yours so the first hop is through that peer. 
   - `in`: Enter a pubkey if you want the last hop to be through a specific in peer of the destination node.
   Note: If you enter your pubkey, and you probe it using an out peer and an in peer of yours, it becomes a command that can you simulate a rebalance with. 
@@ -716,6 +720,7 @@ This command is used to make a keysend payment using a node's pubkey.
   - `pubkey or lnurl`: Enter the pubkey of the node you want to make a payment to You can also enter an lnurl or lightning address to pay to.
 - Flags: 
   - `avoid`: When paying via keysend you can set to avoid a node by entering a public key or a specific channel by entering a channel ID. You can also avoid multiple nodes/channels by using the avoid flag multiple times. You can also use a `bos tag` (more on this in a separate command below) to avoid a group of nodes or channels by grouping them together. 
+  - `avoid-high-fee-routes`: Ignore trying paths with fees greater than specified fees.
   - `out`: Keysend out from a specifc peer of yours so the first hop is through that peer. 
   - `in`: Enter a pubkey if you want the last hop to be through a specific in peer of the destination node.
   Note: If you enter your own pubkey, you can keysend using an out peer and an in peer of yours, it becomes a command that can you do rebalance with. Useful for rebalances below 50k sats since `bos rebalance` does not support rebalances below 50k sats. 
