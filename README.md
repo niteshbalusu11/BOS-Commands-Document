@@ -2,7 +2,7 @@
 
 **This document helps with BOS Commands:**
 
-### **Updated until version `13.25.2`**
+### **Updated until version `15.4.2`**
 <br></br>
 
 Most bos commands follow the following format.
@@ -342,9 +342,10 @@ Lets you make a signed transaction to an address and a specific amount to spend 
   - `amount`: Enter the amount you're funding.
 - Flags: 
   - `dryrun`: Does a dryrun and prevents your funds (UTXOs) from getting locked. 
-  - `utxo`: Enter a specific tx_id:vout that you want to use to fund. 
+  - `utxo`: Enter a specific tx_id:vout that you want to use to fund. Unconfirmed UTXOs are allowed.
   - `select-utxos`: Opens an interactive view to select your spendable UTXOs, use "Space" to select a UTXO and hit "Enter" when done. 
   - `fee-rate`: Set onchain fee rate for the funding transaction in sats/vByte.
+  - `broadcast`: Broadcasts the transaction to the network.
   <br></br>
   Example: `bos fund addressToFund amountToFund --select-utxos --fee-rate 1`
   <br></br>
@@ -381,7 +382,10 @@ Returns a list of connections and other public information of a node.
 Sets rules for other peers to open channels to you. It takes formulas as the as the rule.
 
 - Flags: 
-  - `rule`: Select the rule you want to set, examples are `CAPACITY>5000000` to only allow inbound channels of more than 5M capacity. `CAPACITIES>100*M` to only allow an inbound channel if the peer has a total of 1BTC capacity from all public channels put together. Other examples include `CHANNEL_AGES`, `FEE_RATES`, `LOCAL_BALANCE`, `PUBLIC_KEY`, `PRIVATE` etc. 
+  - `rule`: Select the rule you want to set, examples are `CAPACITY>5000000` to only allow inbound channels of more than 5M capacity. `CAPACITIES>100*M` to only allow an inbound channel if the peer has a total of 1BTC capacity from all public channels put together. Other examples include `CHANNEL_AGES`, `FEE_RATES`, `LOCAL_BALANCE`, `PUBLIC_KEY`, `PRIVATE`, `TOR`, `CLEARNET`, `OBSOLETE`, `JOINT_PUBLIC_CAPACITY` etc.
+  - `TOR` and `CLEARNET` let you control if you want to accept inbound channels from TOR or CLEARNET peers.
+  - `OBSELETE` lets you control if you want to accept inbound channels from peers that are opening a channels to you with a legacy channel type.
+  - `JOIN_PUBLIC_CAPACITY` is the sum of capacities of all public channels between you and the requesting peer.
   - `reason` sends back a reason message when rejecting an inbound channel.
   - `coop-close-address`: Listens to inbound channel open requests and intercepts them to add a cooperative closing address to send funds to when the channel to closed. Can be repeatable and it will cycle through the addresses.
   <br></br>
