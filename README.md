@@ -632,6 +632,7 @@ Simulate a payment for a certain amount and it will be simulated through the con
 
 - Arguments:
   - `pubkey`: Enter the destination pubkey you want to probe, can be yours as well if you want to probe yourself for a rebalance.
+  -  OR `invoice`: Enter an invoice you want to probe (e. g. for probing private nodes which are not known to the network).
 - Options:
   - `amount`: Amount you want to probe for
 - Flags: 
