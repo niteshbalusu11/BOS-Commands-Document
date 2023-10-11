@@ -2,7 +2,7 @@
 
 **This document helps with BOS Commands:**
 
-### **Updated until version `15.4.2`**
+### **Updated until version `17.0.1`**
 <br></br>
 
 Most bos commands follow the following format.
@@ -44,7 +44,6 @@ If this guide was of help and you want to share some ❤️, please feel free to
 - [find](#find) - Query a string
 - [forwards](#forwards) - List your forwards and fees earned
 - [fund](#fund) - Fund an onchain address
-- [gateway](#gateway) - Create a gateway to listen on
 - [graph](#graph) - Get node information from a graph
 - [inbound-channel-rules](#inbound-channel-rules) - Set rules for nodes to open channels to you
 - [inbound-liquidity](#inbound-liquidity) - Shows your inbound liquidity
@@ -119,6 +118,7 @@ Send keysend advertisements to the network.
   - `filter`: Pass an expression for nodes matching a certain condition
   - `max-hops`: Maximum hops you want to target the advertisement. max-hops=0 is your peers only.
   - `min-hops`: Minimum hops you want to target the advertisement. 
+  - `tag`: Advertise to a tag, check `tags` command to learn how to setup tags.
 
   Example: `bos advertise --budget 3000 --max-hops 2`
   <br></br>
@@ -158,7 +158,9 @@ Generates address and QR code to deposit funds to your onchain wallet.
 - Options:
   - `amount`: generate an address to deposit a specific amount. `bos chain-deposit 100000`.
 - Flags:
-  - `format`: set the address format, supported options are np2wpkh, p2wpkh (default), p2tr, 
+  - `format`: set the address format, supported options are np2wpkh, p2wpkh, p2tr (default).
+  - `fresh`: generates a fresh address every time.
+
     <br></br>
     Example: `bos chain-deposit` or `bos chain-deposit 100000 --format p2tr`
     <br></br>
@@ -351,18 +353,6 @@ Lets you make a signed transaction to an address and a specific amount to spend 
   <br></br>
   <br></br>
 
-### gateway
-
-Stars a LND gateway server on a port that listens to WebUI Access. Connection code has a specific expiry time.
-
-- Flags: 
-  - `port`: Starts lisening on a specified port 
-  - `minutes`: Enter time in minutes the credentials are valid for. (Default: 10, Max: 60).
-  - `nospend`: Generates a nospend macaroon credentials.
-  - `remote`: Enter a URL to generate a connection code for a remotegate way that expires at a specific time.
-  <br></br>
-  <br></br>
-
 ### graph
 
 Returns a list of connections and other public information of a node.
@@ -457,6 +447,7 @@ Create an invoice and get a BOLT 11 payment request
   `hours`: Number of hours the invoice expires.
   `include-hints`: Include private channel hints in the invoice.
   `rate-provider`: Set a rate provider for fiat rates. coindesk (default), coinbase or coingecko.
+  `reject-on-amount-increase`: Reject if fiat amount increases.
   `select-hints`: Select specific private channel routing hints to add to the invoice.
   `virtual`: Adds a fake pubkey as the destination and your real node intercepts the payment.
   `virtual-fee-rate`: Add the fee rate you want to charge for the final hop to the fake pubkey.
