@@ -447,7 +447,7 @@ Create an invoice and get a BOLT 11 payment request
   `hours`: Number of hours the invoice expires.
   `include-hints`: Include private channel hints in the invoice.
   `rate-provider`: Set a rate provider for fiat rates. coindesk (default), coinbase or coingecko.
-  `reject-on-amount-increase`: Reject if fiat amount increases and is unfavorable to you.
+  `reject-on-amount-increase`: Reject if fiat amount changes in a way its unfavorable to you.
   `select-hints`: Select specific private channel routing hints to add to the invoice.
   `virtual`: Adds a fake pubkey as the destination and your real node intercepts the payment.
   `virtual-fee-rate`: Add the fee rate you want to charge for the final hop to the fake pubkey.
