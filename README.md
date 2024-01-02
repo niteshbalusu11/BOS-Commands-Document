@@ -2,7 +2,7 @@
 
 **This document helps with BOS Commands:**
 
-### **Updated until version `17.0.1`**
+### **Updated until version `17.5.4`**
 <br></br>
 
 Most bos commands follow the following format.
@@ -523,6 +523,8 @@ Helps to open channels to the network, batch opening and funding from external/c
   - `type`: public/private/public-trusted/private-trusted, default: public
   - `coop-close-address`: Add an external wallet address like your cold storage wallet to send funds when a channel is coop closed.
   - `set-fee-rate`: Set a fee rate on opening a channel when supported.
+  - `skip-anchors-check`: Bos defaults to opening anchor channels only, this flag allows you to skip that check to open legacy channels.
+  - `commitment`: Use this flag to specify the channel commitment type like `simple_taproot` to open a taproot channel.
   <br></br>
   Example: `bos open pubkey1 --amount 1000000 pubkey2 --amount 3000000 pubkey3 --amount 4000000`. Once you enter the command and hit enter, it will ask the onchain transaction fee you want to set and also if you want to use your internal LND wallet for funding the transaction.
   <br></br>
@@ -768,6 +770,7 @@ This command allows you to connect bos to a personal telegram bot. https://plebn
     - `reset-api-key`: Allows you to start the setup process from start and enter a new API key.
     - `use-proxy`: Pass a flag to a json file that stores socksproxy (such as Tor) information for bos to communicate with telegram. Supports host, port, userId and password keys
     - `use-small-units`: This flag switches units on telegram from BTC to Satoshis. Example: Default `0.00456123` will be displayed as `456,123.2003` which includes millisats.
+    - `use-rounded-units`: Formats amounts as rounded amounts.
     <br></br>
     Sample File `proxy-config.json` (you can use any name of your choice): 
     ```
