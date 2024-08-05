@@ -18,11 +18,9 @@ Most bos commands follow the following format.
 ### **Always double check with `bos commandName -h` before running a command**
 <br></br>
 
-If this guide was of help and you want to share some ❤️, please feel free to send a ⚡ tip to the ⚡ address: 0x49f4f513b6752c95@ln.tips
+If this guide was of help and you want to share some ❤️, please feel free to send a ⚡ tip to the ⚡ address: `nitesh@noderunner.wtf`
 
-**LNURL:** LNURL1DP68GURN8GHJ7MRW9E6XJURN9UH8WETVDSKKKMN0WAHZ7MRWW4EXCUP0X9UR2VRYX4NRWCFNVVMKYCMXXCURQGXD649
-
-![LNURL](./images/lnurl.jpg)
+![LNURL](./images/lnurl.png)
 <br></br>
 ## Commands List
 
