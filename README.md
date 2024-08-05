@@ -2,7 +2,7 @@
 
 **This document helps with BOS Commands:**
 
-### **Updated until version `17.5.4`**
+### **Updated until version `19.1.1`**
 <br></br>
 
 Most bos commands follow the following format.
@@ -44,6 +44,7 @@ If this guide was of help and you want to share some ❤️, please feel free to
 - [find](#find) - Query a string
 - [forwards](#forwards) - List your forwards and fees earned
 - [fund](#fund) - Fund an onchain address
+- [get-inbound-channel](#get-inbound-channel) - Buy an inbound channel from a node using LSPS1 protocol
 - [graph](#graph) - Get node information from a graph
 - [inbound-channel-rules](#inbound-channel-rules) - Set rules for nodes to open channels to you
 - [inbound-liquidity](#inbound-liquidity) - Shows your inbound liquidity
@@ -53,6 +54,7 @@ If this guide was of help and you want to share some ❤️, please feel free to
 - [limit-forwarding](#limit-forwarding) - Add restrictions to forwardind through your node
 - [lnurl](#lnurl) - Lets you perform a list of LNUrl functions
 - [nodes](#nodes) - Configure a saved node
+- [offer-channel-open](#offer-channel-open) - Sell a channel to a node using LSPS1 protocol
 - [open](#open) - Open channels to nodes
 - [open-balanced-channel](#open-balanced-channel) - Open a balanced channel with a node
 - [open-group-channel](#open-group-channel) - Open balanced channels with multiple peers
@@ -353,6 +355,26 @@ Lets you make a signed transaction to an address and a specific amount to spend 
   <br></br>
   <br></br>
 
+### get-inbound-channel
+
+Buy an inbound channel from a node using [LSPS1](https://github.com/BitcoinAndLightningLayerSpecs/lsp/tree/main/LSPS1) protocol.
+
+- Arguments:
+  - `pubkey`: Enter the pubkey of the node you want to buy an inbound channel from. (Optional) If it's not specified, you will query the lightning network to find nodes that are offering inbound channels using LSPS1.
+
+- Flags:
+  - `amount`: Set the amount of inbound capacity you want to buy. (default: 5,000,000 sats)
+  - `days`: Minimum number of days you want the channel to be open for. The expected lifetime of the channel.
+  - `dryrun`: Request a quote from the node selling the channel.
+  - `max-wait-hours`: Set the maximum number of hours you want to wait for the channel to be open. (default: 40 hours)
+  - `receovery`: Check the status of an open or closed order using the order id.
+  - `type`: Set the type of channel you want to buy (public/private). (default: public)
+
+  Example: `bos get-inbound-channel <pubkey> --amount 1000000 --days 10 --max-wait-hours 20 --type private`
+
+  <br></br>
+  <br></br>
+
 ### graph
 
 Returns a list of connections and other public information of a node.
@@ -503,6 +525,22 @@ Adds a saved node for you to control remotely
   - `remove`: removes an existing saved node 
   - `unlock`: removes encryption on the macaroon of a saved node 
   - `lock`: encrypt a saved node using a GPG key
+  <br></br>
+  <br></br>
+
+### offer-channel-open
+
+Sell a channel to a node using [LSPS1](https://github.com/BitcoinAndLightningLayerSpecs/lsp/tree/main/LSPS1) protocol. If you run this server, your node will broadcast a feature bit to the network so that other nodes can see your channel offers.
+
+- Flags:
+  - `added-base-fee`: Add a base fee surcharge to the sale. (default: 75,000 sats)
+  - `capacity-fee-rate`: Set a fee rate for the capacity you are selling. (default: 10,000 ppm)
+  - `max-capacity`: Set a maximum capacity for the channel you are selling. (default: 100,000,000 sats)
+  - `min-capacity`: Set a minimum capacity for the channel you are selling. (default: 1,000,000 sats)
+  - `private-fee-rate`: Set an additional fee rate if the channel is private. (default: 1,000 ppm)
+
+  Example: `bos offer-channel-open --capacity-fee-rate 10000 --max-capacity 5000000 --min-capacity 1000000 --private-fee-rate 1000`
+
   <br></br>
   <br></br>
 
